@@ -11,9 +11,13 @@ export interface IMightDoDMG {
   dmg?: number;
 }
 
+export interface IMightHaveTable {
+  table?: ITableRow[];
+}
+
 // Config
 export interface IConfig {
-  id: number;
+  id: number; // config ids are a different
   current: string;
   index: IIndexItem[];
   saving: boolean;
@@ -25,7 +29,7 @@ export interface IIndexItem extends IHasName, IHasID {}
 export interface ICharacter extends IHasName, IHasID {
   hp: number;
   ap: number;
-  roles: { [index: string]: IAbility[] };
+  roles: { [index: string]: IRole };
   deets: {
     pronouns: string;
     age: number;
@@ -45,16 +49,27 @@ export interface ICharacter extends IHasName, IHasID {
   tinyItems: string;
 }
 
+export interface IRole {
+  paths: { [index: string]: IAbility[] };
+}
+
 export interface IAbility extends IHasName {
-  text: string;
+  text?: string;
   subAbilities: ISubAbility[];
 }
 
-export interface ISubAbility extends IMightDoDMG {
-  ap: number;
+export interface ISubAbility extends IMightDoDMG, IMightHaveTable {
+  ap?: number;
+  roll?: boolean;
   text: string;
 }
 
-export interface IInventoryItem extends IHasName, IMightDoDMG {
+export interface ITableRow {
+  floor: number;
+  ceiling?: number;
+  result: string;
+}
+
+export interface IInventoryItem extends IHasName, IMightDoDMG, IMightHaveTable {
   text: string;
 }
