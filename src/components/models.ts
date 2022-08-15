@@ -54,13 +54,14 @@ export interface IRole {
 }
 
 export interface IAbility extends IHasName {
-  text?: string;
+  prefixText?: string;
+  suffixText?: string;
+  roll?: boolean;
   subAbilities: ISubAbility[];
 }
 
 export interface ISubAbility extends IMightDoDMG, IMightHaveTable {
-  ap?: number;
-  roll?: boolean;
+  ap?: number | 'X';
   text: string;
 }
 
