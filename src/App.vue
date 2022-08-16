@@ -7,7 +7,7 @@ import { defineComponent, onMounted, ref, watch } from 'vue';
 
 import { useCharacterStore } from './stores/character';
 import { useConfigStore } from './stores/config';
-import { useQuasar, debounce } from 'quasar';
+import { debounce } from 'quasar';
 
 import { sleep } from 'src/lib/util';
 
@@ -17,8 +17,8 @@ export default defineComponent({
     const loaded = ref(false);
     const char = useCharacterStore();
 
-    const $q = useQuasar();
-    $q.dark.set(true);
+    //const $q = useQuasar();
+    //$q.dark.set(true);
 
     onMounted(async () => {
       await char.populateStore();

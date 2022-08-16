@@ -1,5 +1,5 @@
 import { uid } from 'quasar';
-import { ICharacter } from 'src/components/models';
+import { ICharacter, IInventoryItem } from 'src/components/models';
 
 export const NewCharacter = (): ICharacter => {
   return {
@@ -25,5 +25,12 @@ export const NewCharacter = (): ICharacter => {
     },
     inventory: [],
     tinyItems: '',
+  };
+};
+
+export const NewInventoryItem = (): IInventoryItem => {
+  return {
+    name: '',
+    text: '',
   };
 };

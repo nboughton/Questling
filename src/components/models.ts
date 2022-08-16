@@ -51,9 +51,11 @@ export interface ICharacter extends IHasName, IHasID {
 
 export interface IRole {
   paths: { [index: string]: IAbility[] };
+  selected?: boolean;
 }
 
 export interface IAbility extends IHasName {
+  learned?: boolean;
   prefixText?: string;
   suffixText?: string;
   roll?: boolean;

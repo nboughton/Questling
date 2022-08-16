@@ -1,1 +1,33 @@
 // app global css in SCSS form
+@font-face {
+  font-family: Ovo;
+  src: url(../fonts/Ovo_Regular.17.ttf);
+}
+
+@font-face {
+  font-family: AlegreyaSC;
+  src: url(../fonts/Alegreya_Sans_SC_Regular.20.ttf);
+}
+
+@font-face {
+  font-family: AlegrayaBlack;
+  src: url(../fonts/Alegreya_Black.29.ttf);
+}
+
+* {
+  font-family: 'Ovo';
+}
+
+.q-tab__label {
+  font-family: 'AlegreyaSC';
+  font-weight: bold;
+}
+
+.pull-quote {
+  font-family: 'AlegrayaBlack';
+}
+
+.page-content {
+  font-size: large;
+  font-weight: 500;
+}
