@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { IConfig } from 'src/components/models';
 import { NewConfig } from 'src/lib/config';
 import { db } from 'src/lib/db';
+import { deepCopy } from 'src/lib/util';
 
 export const useConfigStore = defineStore('config', {
   state: () => {
@@ -29,7 +30,7 @@ export const useConfigStore = defineStore('config', {
     },
 
     async save() {
-      const storeCopy = structuredClone(this.data) as IConfig;
+      const storeCopy = deepCopy(this.data) as IConfig;
       await db.config.update(1, storeCopy).catch((err) => console.log(err));
     },
 

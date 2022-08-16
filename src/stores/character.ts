@@ -4,7 +4,7 @@ import { useConfigStore } from './config';
 import { db } from 'src/lib/db';
 import { ICharacter } from 'src/components/models';
 import { exportFile } from 'quasar';
-import { now } from 'src/lib/util';
+import { deepCopy, now } from 'src/lib/util';
 
 export const useCharacterStore = defineStore('character', {
   state: () => {
@@ -40,12 +40,12 @@ export const useCharacterStore = defineStore('character', {
         id: this.data.id,
       });
 
-      const storeCopy = structuredClone(this.data) as ICharacter;
+      const storeCopy = deepCopy(this.data) as ICharacter;
       await db.character.put(storeCopy).catch((err) => console.log(err));
     },
 
     async save() {
-      const storeCopy = structuredClone(this.data) as ICharacter;
+      const storeCopy = deepCopy(this.data) as ICharacter;
       await db.character
         .update(this.data.id, storeCopy)
         .catch((err) => console.log(err));

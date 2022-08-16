@@ -1,49 +1,47 @@
 <template>
-  <q-page class="row items-center justify-evenly">
-    <example-component
-      title="Example component"
-      active
-      :todos="todos"
-      :meta="meta"
-    ></example-component>
+  <q-page padding>
+    <div class="row justify-evenly items-baseline">
+      <q-input
+        class="col-2"
+        type="number"
+        label="HP"
+        v-model.number="char.data.hp"
+      />
+      <q-input class="col-6" label="Name" v-model="char.data.name" />
+      <q-input
+        class="col-2"
+        type="number"
+        label="AP"
+        v-model.number="char.data.ap"
+      />
+    </div>
+    <q-tabs v-model="tab">
+      <q-tab name="fluff" label="Profile" />
+      <q-tab name="abilities" label="Abilities" />
+      <q-tab name="inventory" label="Inventory" />
+    </q-tabs>
+
+    <q-tab-panels v-model="tab" animated>
+      <q-tab-panel name="fluff"> <CharFluff /> </q-tab-panel>
+    </q-tab-panels>
   </q-page>
 </template>
 
 <script lang="ts">
-import { Todo, Meta } from 'components/models';
-import ExampleComponent from 'components/ExampleComponent.vue';
+import { useCharacterStore } from 'src/stores/character';
 import { defineComponent, ref } from 'vue';
+import CharFluff from 'src/components/CharFluff.vue';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { ExampleComponent },
-  setup () {
-    const todos = ref<Todo[]>([
-      {
-        id: 1,
-        content: 'ct1'
-      },
-      {
-        id: 2,
-        content: 'ct2'
-      },
-      {
-        id: 3,
-        content: 'ct3'
-      },
-      {
-        id: 4,
-        content: 'ct4'
-      },
-      {
-        id: 5,
-        content: 'ct5'
-      }
-    ]);
-    const meta = ref<Meta>({
-      totalCount: 1200
-    });
-    return { todos, meta };
-  }
+  components: { CharFluff },
+  setup() {
+    const tab = ref('fluff');
+    const char = useCharacterStore();
+    return {
+      tab,
+      char,
+    };
+  },
 });
 </script>
