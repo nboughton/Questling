@@ -7,6 +7,10 @@ export interface IHasID {
   id: string;
 }
 
+export interface IHasSubAbilities {
+  subAbilities: ISubAbility[];
+}
+
 export interface IMightDoDMG {
   dmg?: number;
 }
@@ -21,6 +25,7 @@ export interface IConfig {
   current: string;
   index: IIndexItem[];
   saving: boolean;
+  edit: boolean;
 }
 
 export interface IIndexItem extends IHasName, IHasID {}
@@ -54,12 +59,11 @@ export interface IRole {
   selected?: boolean;
 }
 
-export interface IAbility extends IHasName {
+export interface IAbility extends IHasName, IHasSubAbilities {
   learned?: boolean;
   prefixText?: string;
   suffixText?: string;
   roll?: boolean;
-  subAbilities: ISubAbility[];
 }
 
 export interface ISubAbility extends IMightDoDMG, IMightHaveTable {
@@ -73,6 +77,6 @@ export interface ITableRow {
   result: string;
 }
 
-export interface IInventoryItem extends IHasName, IMightDoDMG, IMightHaveTable {
+export interface IInventoryItem extends IHasName, IHasSubAbilities, IMightDoDMG {
   text: string;
 }

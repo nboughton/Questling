@@ -10,7 +10,7 @@
 }
 
 @font-face {
-  font-family: AlegrayaBlack;
+  font-family: AlegreyaBlack;
   src: url(../fonts/Alegreya_Black.29.ttf);
 }
 
@@ -24,10 +24,38 @@
 }
 
 .pull-quote {
-  font-family: 'AlegrayaBlack';
+  font-family: 'AlegreyaBlack';
 }
 
 .page-content {
+  font-size: x-large;
+  font-weight: 500;
+}
+
+.inventory-content {
   font-size: large;
   font-weight: 500;
+}
+
+.heading {
+  font-family: 'AlegreyaSC';
+  font-weight: bold;
+}
+
+.ap-cost-box {
+  color: white;
+  font-weight: bold;
+  background-color: black;
+  padding: 2px 20px 2px 5px;
+  border-radius: 3px;
+  clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  cursor: pointer;
+}
+
+.dmg-box {
+  color: red;
+  font-weight: bold;
+  padding: 2px 5px 2px 5px;
+  border-radius: 3px;
+  border: 2px solid red;
 }

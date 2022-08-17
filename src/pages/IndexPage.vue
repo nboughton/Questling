@@ -1,19 +1,9 @@
 <template>
-  <q-page class="page-content" padding>
+  <q-page class="page-content q-px-xl" padding>
     <div class="row justify-evenly items-baseline">
-      <q-input
-        class="col-2"
-        type="number"
-        label="HP"
-        v-model.number="char.data.hp"
-      />
+      <q-input class="col-2" type="number" label="HP" v-model.number="char.data.hp" />
       <q-input class="col-6" label="Name" v-model="char.data.name" />
-      <q-input
-        class="col-2"
-        type="number"
-        label="AP"
-        v-model.number="char.data.ap"
-      />
+      <q-input class="col-2" type="number" label="AP" v-model.number="char.data.ap" />
     </div>
     <q-tabs v-model="tab">
       <q-tab name="fluff" label="Profile" class="heading" />

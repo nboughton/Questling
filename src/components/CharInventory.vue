@@ -1,41 +1,75 @@
 <template>
-  <h5 class="row items-center">
-    Carrying {{ char.data.inventory.length }} of 12 item(s)
-    <q-btn icon="add" flat dense @click="addItem">
+  <h5 class="row items-center heading">
+    Carrying {{ char.data.inventory.length }} of 12 items
+    <q-btn icon="add" flat dense rounded @click="addItem">
       <q-tooltip>Add inventory item</q-tooltip>
     </q-btn>
   </h5>
-  <div
-    class="row items-baseline q-gutter-sm full-width"
-    v-for="(item, index) of char.data.inventory"
-    :key="index"
-  >
-    <q-input label="Name" v-model="char.data.inventory[index].name" />
-    <q-input label="Text" v-model="char.data.inventory[index].text" autogrow />
-    <q-btn icon="delete" flat dense @click="removeItem(index)">
-      <q-tooltip>Remove this item</q-tooltip>
-    </q-btn>
-  </div>
-  <q-input
-    class="row"
-    label="Tiny Items"
-    v-model="char.data.tinyItems"
-    autogrow
-  />
+
+  <q-card class="column inventory-content q-my-none q-py-none q-mb-md" v-for="(item, index) of char.data.inventory" :key="index">
+    <q-card-section class="row items-center q-py-none q-my-none">
+      <h5 class="col-grow heading q-my-sm">{{ item.name }}</h5>
+      <q-btn v-if="config.data.edit" class="col-shrink" icon="edit" flat dense rounded @click="editItem(index)" />
+      <q-btn v-if="config.data.edit" class="col-shrink" icon="delete" flat dense @click="removeItem(index)">
+        <q-tooltip>Remove this item</q-tooltip>
+      </q-btn>
+    </q-card-section>
+    <q-card-section class="row q-py-sm q-my-sm">
+      <p class="abl-text">
+        <span class="dmg-box" v-if="item.dmg">{{ item.dmg }}</span>
+        {{ item.text }}
+      </p>
+      {{ item.text }}</q-card-section
+    >
+    <q-card-section class="row q-py-sm q-my-sm" v-for="(abl, ablIndex) of char.data.inventory[index].subAbilities" :key="`abl-${ablIndex}`">
+      <p class="abl-text">
+        <span class="ap-cost-box" v-if="abl.ap">{{ abl.ap }}</span>
+        <span class="dmg-box" v-if="abl.dmg">{{ abl.dmg }}</span>
+        {{ abl.text }}
+      </p>
+      <div class="col-12">
+        <roll-table v-if="abl.table" :table="abl.table" />
+      </div>
+    </q-card-section>
+  </q-card>
+
+  <q-input class="row" label="Tiny Items" v-model="char.data.tinyItems" autogrow />
+
+  <q-dialog v-model="showEditor">
+    <q-card style="min-width: 50%">
+      <q-card-section class="row"><h5 class="q-my-sm heading">Item Editor</h5></q-card-section>
+      <q-card-section class="column"><item-editor v-model="char.data.inventory[itemToEdit]" /></q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts">
 import { useCharacterStore } from 'src/stores/character';
 import { NewInventoryItem } from 'src/lib/character';
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { useQuasar } from 'quasar';
+import ItemEditor from './ItemEditor.vue';
+import RollTable from './RollTable.vue';
+import { useConfigStore } from 'src/stores/config';
 
 export default defineComponent({
   name: 'CharInventory',
+  components: { ItemEditor, RollTable },
   setup() {
     const char = useCharacterStore();
+    const config = useConfigStore();
 
-    const addItem = () => char.data.inventory.push(NewInventoryItem());
+    const showEditor = ref(false);
+    const itemToEdit = ref(0);
+    const addItem = () => {
+      char.data.inventory.push(NewInventoryItem());
+      itemToEdit.value = char.data.inventory.length - 1;
+      showEditor.value = true;
+    };
+    const editItem = (index: number) => {
+      itemToEdit.value = index;
+      showEditor.value = true;
+    };
 
     const $q = useQuasar();
     const removeItem = (index: number) =>
@@ -49,8 +83,12 @@ export default defineComponent({
 
     return {
       char,
+      config,
       addItem,
+      editItem,
       removeItem,
+      showEditor,
+      itemToEdit,
     };
   },
 });

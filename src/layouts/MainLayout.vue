@@ -5,6 +5,7 @@
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title> Questling </q-toolbar-title>
+        <q-toggle label="Edit" v-model="config.data.edit" />
       </q-toolbar>
     </q-header>
 
@@ -20,13 +21,16 @@
 </template>
 
 <script>
+import { useConfigStore } from 'src/stores/config';
 import { ref } from 'vue';
 
 export default {
   setup() {
+    const config = useConfigStore();
     const leftDrawerOpen = ref(false);
 
     return {
+      config,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

@@ -6,5 +6,6 @@ export const NewConfig = (): IConfig => {
     current: '',
     index: [],
     saving: false,
+    edit: true,
   };
 };

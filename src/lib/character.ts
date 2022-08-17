@@ -32,5 +32,6 @@ export const NewInventoryItem = (): IInventoryItem => {
   return {
     name: '',
     text: '',
+    subAbilities: [],
   };
 };
