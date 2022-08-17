@@ -26,6 +26,7 @@ export interface IConfig {
   index: IIndexItem[];
   saving: boolean;
   edit: boolean;
+  showAbilityBrowserHelp: boolean;
 }
 
 export interface IIndexItem extends IHasName, IHasID {}

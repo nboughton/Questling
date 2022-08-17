@@ -7,5 +7,6 @@ export const NewConfig = (): IConfig => {
     index: [],
     saving: false,
     edit: true,
+    showAbilityBrowserHelp: true,
   };
 };

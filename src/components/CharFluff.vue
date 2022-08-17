@@ -66,7 +66,9 @@
 </template>
 
 <script lang="ts">
+import { useQuasar } from 'quasar';
 import { Roles } from 'src/data/roles';
+import { deepCopy } from 'src/lib/util';
 import { useCharacterStore } from 'src/stores/character';
 import { useConfigStore } from 'src/stores/config';
 import { computed, defineComponent, ref, watch } from 'vue';
@@ -75,13 +77,30 @@ export default defineComponent({
   setup() {
     const char = useCharacterStore();
     const config = useConfigStore();
+    const $q = useQuasar();
 
     const availableRoles = computed((): string[] => Object.keys(Roles));
-    const selectedRoles = ref([] as string[]);
+    const selectedRoles = ref(Object.keys(char.data.roles));
     watch(
       () => selectedRoles.value,
       () => {
-        // stuff happens
+        // Add missing roles
+        selectedRoles.value.forEach((role) => {
+          if (!Object.keys(char.data.roles).includes(role)) {
+            char.data.roles[role] = deepCopy(Roles[role]);
+          }
+        });
+
+        // Remove deleted roles
+        Object.keys(char.data.roles).forEach((role) => {
+          if (!selectedRoles.value.includes(role)) {
+            $q.dialog({
+              title: `Remove ${role} Role?`,
+              message: 'This will remove all data for this Role from your character.',
+              cancel: true,
+            }).onOk(() => delete char.data.roles[role]);
+          }
+        });
       }
     );
 

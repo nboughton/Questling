@@ -19,17 +19,9 @@
         <span class="dmg-box" v-if="item.dmg">{{ item.dmg }}</span>
         {{ item.text }}
       </p>
-      {{ item.text }}</q-card-section
-    >
+    </q-card-section>
     <q-card-section class="row q-py-sm q-my-sm" v-for="(abl, ablIndex) of char.data.inventory[index].subAbilities" :key="`abl-${ablIndex}`">
-      <p class="abl-text">
-        <span class="ap-cost-box" v-if="abl.ap">{{ abl.ap }}</span>
-        <span class="dmg-box" v-if="abl.dmg">{{ abl.dmg }}</span>
-        {{ abl.text }}
-      </p>
-      <div class="col-12">
-        <roll-table v-if="abl.table" :table="abl.table" />
-      </div>
+      <sub-ability-display :ability="abl" />
     </q-card-section>
   </q-card>
 
@@ -49,12 +41,12 @@ import { NewInventoryItem } from 'src/lib/character';
 import { defineComponent, ref } from 'vue';
 import { useQuasar } from 'quasar';
 import ItemEditor from './ItemEditor.vue';
-import RollTable from './RollTable.vue';
 import { useConfigStore } from 'src/stores/config';
+import SubAbilityDisplay from './SubAbilityDisplay.vue';
 
 export default defineComponent({
   name: 'CharInventory',
-  components: { ItemEditor, RollTable },
+  components: { ItemEditor, SubAbilityDisplay },
   setup() {
     const char = useCharacterStore();
     const config = useConfigStore();
