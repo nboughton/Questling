@@ -2,7 +2,7 @@
   "name": "questling",
   "version": "0.0.1",
   "description": "Character Sheet App for Quest RPG",
-  "productName": "Character Sheet App for Quest RPG",
+  "productName": "Questling",
   "author": "Nick Boughton <nicholasboughton@gmail.com>",
   "private": true,
   "scripts": {

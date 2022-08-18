@@ -81,3 +81,15 @@ export interface ITableRow {
 export interface IInventoryItem extends IHasName, IHasSubAbilities, IMightDoDMG {
   text: string;
 }
+
+export interface IKnownCount {
+  known: number;
+  total: number;
+}
+
+export interface IKnownAbilities {
+  [index: string]: {
+    role: IKnownCount;
+    paths: { [index: string]: IKnownCount };
+  };
+}

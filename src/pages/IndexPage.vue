@@ -5,7 +5,7 @@
       <q-input class="col-6" label="Name" v-model="char.data.name" />
       <q-input class="col-2" type="number" label="AP" v-model.number="char.data.ap" />
     </div>
-    <q-tabs v-model="tab">
+    <q-tabs v-model="tab" align="justify">
       <q-tab name="fluff" label="Profile" class="heading" />
       <q-tab name="abilities" label="Abilities" class="heading" />
       <q-tab name="inventory" label="Inventory" class="heading" />

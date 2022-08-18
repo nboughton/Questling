@@ -1,7 +1,7 @@
 <template>
   <div class="row justify-between items-center">
     <h6 class="heading q-py-none q-my-none col-grow">{{ ability.name }}</h6>
-    <q-checkbox v-model="learned" size="lg" dense checked-icon="star" unchecked-icon="star_border" indeterminate-icon="star_border">
+    <q-checkbox v-model="learned" size="lg" checked-icon="star" unchecked-icon="star_border" indeterminate-icon="star_border">
       <q-tooltip>Learn this ability</q-tooltip>
     </q-checkbox>
   </div>
