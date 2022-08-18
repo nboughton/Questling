@@ -9,8 +9,8 @@
   <q-card class="column inventory-content q-my-none q-py-none q-mb-md" v-for="(item, index) of char.data.inventory" :key="index">
     <q-card-section class="row items-center q-py-none q-my-none">
       <h5 class="col-grow heading q-my-sm">{{ item.name }}</h5>
-      <q-btn v-if="config.data.edit" class="col-shrink" icon="edit" flat dense rounded @click="editItem(index)" />
-      <q-btn v-if="config.data.edit" class="col-shrink" icon="delete" flat dense @click="removeItem(index)">
+      <q-btn class="col-shrink" icon="edit" flat dense rounded @click="editItem(index)" />
+      <q-btn class="col-shrink" icon="delete" flat dense @click="removeItem(index)">
         <q-tooltip>Remove this item</q-tooltip>
       </q-btn>
     </q-card-section>

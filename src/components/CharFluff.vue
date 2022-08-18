@@ -1,5 +1,8 @@
 <template>
-  <div class="row items-baseline q-gutter-sm">Hello,</div>
+  <div class="row items-baseline justify-between q-gutter-sm">
+    <span class="col-grow q-ml-none">Hello,</span>
+    <q-toggle v-model="config.data.edit" label="Edit" checked-icon="edit" unchecked-icon="lock" />
+  </div>
 
   <div class="row items-baseline q-gutter-sm">
     My name is<q-input v-if="config.data.edit" class="col" label="Name" v-model="char.data.name" dense autogrow /><span v-else>{{ char.data.name }}</span

@@ -30,7 +30,7 @@ export default defineComponent({
   },
   setup(props) {
     const result = ref('');
-    const roll = () => (result.value = tableRoll(props.table));
+    const roll = () => (result.value = tableRoll(props.table).result);
 
     return {
       roll,

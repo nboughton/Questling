@@ -21,7 +21,7 @@ export interface IMightHaveTable {
 
 // Config
 export interface IConfig {
-  id: number; // config ids are a different
+  id: number; // config ids are different
   current: string;
   index: IIndexItem[];
   saving: boolean;
@@ -75,6 +75,11 @@ export interface ISubAbility extends IMightDoDMG, IMightHaveTable {
 export interface ITableRow {
   floor: number;
   ceiling?: number;
+  result: string;
+}
+
+export interface IRollResult {
+  roll: number;
   result: string;
 }
 
