@@ -3,7 +3,12 @@
     <h5 class="heading q-py-none q-my-none text-center">
       {{ roleKey }}
       ({{ knownAbilities[roleKey].role.known }}/{{ knownAbilities[roleKey].role.total }})
-      <q-checkbox v-model="displayToggles[roleKey]" checked-icon="visibility" unchecked-icon="visibility_off">
+      <q-checkbox
+        v-model="displayToggles[roleKey]"
+        checked-icon="visibility"
+        unchecked-icon="visibility_off"
+        :disable="knownAbilities[roleKey].role.known === 0"
+      >
         <q-tooltip>Toggle display of known/all abilities</q-tooltip>
       </q-checkbox>
     </h5>
@@ -62,7 +67,7 @@ export default defineComponent({
 
     onMounted(() => {
       for (const role in char.data.roles) {
-        displayToggles.value[role] = false;
+        displayToggles.value[role] = knownAbilities.value[role].role.known === 0 ? true : false;
 
         const path = Object.keys(char.data.roles[role].paths)[0];
         tabKeys.value.push(path);
@@ -111,6 +116,7 @@ export default defineComponent({
       const out: { [index: string]: IRole } = {};
 
       for (const role of Object.keys(knownAbilities.value)) {
+        // If no abilities for a role are known then set display to all
         if (displayToggles.value[role]) {
           out[role] = char.data.roles[role];
           continue;

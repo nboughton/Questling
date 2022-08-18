@@ -1,5 +1,5 @@
 <template>
-  <q-page class="page-content q-px-xl" padding>
+  <q-page :class="`page-content q-px-${padding}`" padding>
     <div class="row justify-evenly items-baseline">
       <q-input class="col-2" type="number" label="HP" v-model.number="char.data.hp" />
       <q-input class="col-6" label="Name" v-model="char.data.name" />
@@ -21,10 +21,11 @@
 
 <script lang="ts">
 import { useCharacterStore } from 'src/stores/character';
-import { defineComponent, ref } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 import CharFluff from 'src/components/CharFluff.vue';
 import CharAbilities from 'src/components/CharAbilities.vue';
 import CharInventory from 'src/components/CharInventory.vue';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'IndexPage',
@@ -32,9 +33,13 @@ export default defineComponent({
   setup() {
     const tab = ref('fluff');
     const char = useCharacterStore();
+    const $q = useQuasar();
+    const padding = computed((): string => ($q.screen.lt.md ? 'sm' : 'xl'));
+
     return {
       tab,
       char,
+      padding,
     };
   },
 });

@@ -1,70 +1,66 @@
 <template>
-  <div class="row items-baseline justify-between q-gutter-sm">
-    <span class="col-grow q-ml-none">Hello,</span>
+  <div class="row items-center justify-between q-gutter-sm">
+    <span class="col-grow">Hello,</span>
     <q-toggle v-model="config.data.edit" label="Edit" checked-icon="edit" unchecked-icon="lock" />
   </div>
 
-  <div class="row items-baseline q-gutter-sm">
-    My name is<q-input v-if="config.data.edit" class="col" label="Name" v-model="char.data.name" dense autogrow /><span v-else>{{ char.data.name }}</span
-    >, (<q-input v-if="config.data.edit" class="col" label="Pronouns" v-model="char.data.deets.pronouns" dense /><span v-else>{{
-      char.data.deets.pronouns
-    }}</span
-    >) I'm <q-input v-if="config.data.edit" class="col" label="Age" v-model="char.data.deets.age" dense autogrow /><span v-else>{{ char.data.deets.age }}</span
-    >&nbsp;years old and stand <q-input v-if="config.data.edit" class="col" label="Height" v-model="char.data.deets.height" dense autogrow /><span v-else>{{
-      char.data.deets.height
-    }}</span
-    >&nbsp; tall.
-  </div>
+  <div v-if="config.data.edit">
+    <div class="row items-baseline">
+      My name is<q-input class="q-mx-sm" label="Name" v-model="char.data.name" dense autogrow />, (<q-input
+        class="q-mx-sm"
+        label="Pronouns"
+        v-model="char.data.deets.pronouns"
+        dense
+      />), I'm <q-input class="q-mx-sm" label="Age" v-model="char.data.deets.age" dense autogrow /> years old and stand
+      <q-input class="q-mx-sm" label="Height" v-model="char.data.deets.height" dense autogrow /> tall.
+    </div>
 
-  <div class="row items-baseline q-gutter-sm">
-    I'm the party's
-    <q-select v-if="config.data.edit" :options="availableRoles" multiple v-model="selectedRoles" dense /><span v-else>{{ selectedRoles.join('/') }}</span
-    >.
-  </div>
+    <div class="row items-baseline">
+      I'm the party's
+      <q-select class="q-mx-sm" :options="availableRoles" multiple v-model="selectedRoles" dense />.
+    </div>
 
-  <div class="row items-baseline q-gutter-sm">
-    When people see me, they first notice my
-    <q-input v-if="config.data.edit" class="col" label="Body" v-model="char.data.deets.body" dense autogrow /><span v-else>{{ char.data.deets.body }}</span
-    >, <q-input v-if="config.data.edit" class="col" label="Face" v-model="char.data.deets.face" dense autogrow /><span v-else>{{ char.data.deets.face }}</span
-    >, and <q-input v-if="config.data.edit" class="col" label="Vibe" v-model="char.data.deets.vibe" dense autogrow /><span v-else>{{
-      char.data.deets.vibe
-    }}</span
-    >.
-  </div>
+    <div class="row items-baseline">
+      When people see me, they first notice my
+      <q-input class="q-mx-sm" label="Body" v-model="char.data.deets.body" dense autogrow />,
+      <q-input class="q-mx-sm" label="Face" v-model="char.data.deets.face" dense autogrow />, and
+      <q-input class="q-mx-sm" label="Vibe" v-model="char.data.deets.vibe" dense autogrow />.
+    </div>
 
-  <div class="row items-baseline q-gutter-sm">
-    I wear
-    <q-input v-if="config.data.edit" class="col" v-model="char.data.deets.wear[0]" dense autogrow /><span v-else>{{ char.data.deets.wear[0] }}</span
-    >, <q-input v-if="config.data.edit" class="col" v-model="char.data.deets.wear[1]" dense autogrow /><span v-else>{{ char.data.deets.wear[1] }}</span
-    >&nbsp; and move with <q-input v-if="config.data.edit" class="col" v-model="char.data.deets.move" dense autogrow /><span v-else>{{
-      char.data.deets.move
-    }}</span
-    >.
-  </div>
+    <div class="row items-baseline">
+      I wear
+      <q-input class="q-mx-sm" v-model="char.data.deets.wear[0]" dense autogrow />,
+      <q-input class="q-mx-sm" v-model="char.data.deets.wear[1]" dense autogrow /> and move with
+      <q-input class="q-mx-sm" v-model="char.data.deets.move" dense autogrow />.
+    </div>
 
-  <div class="row items-baseline q-gutter-sm">
-    I'm from
-    <q-input v-if="config.data.edit" class="col" label="Place" v-model="char.data.deets.from" dense autogrow /><span v-else>{{ char.data.deets.from }}</span
-    >, where my people are known for
-    <q-input v-if="config.data.edit" class="col" label="Characteristic" v-model="char.data.deets.knownFor" dense autogrow /><span v-else>{{
-      char.data.deets.knownFor
-    }}</span
-    >.
-  </div>
+    <div class="row items-baseline">
+      I'm from
+      <q-input class="q-mx-sm" label="Place" v-model="char.data.deets.from" dense autogrow />, where my people are known for
+      <q-input class="q-mx-sm" label="Characteristic" v-model="char.data.deets.knownFor" dense autogrow />.
+    </div>
 
-  <div class="row items-baseline q-gutter-sm">
-    I believe in
-    <q-input v-if="config.data.edit" class="col" label="Ideal" v-model="char.data.deets.ideal" dense autogrow /><span v-else>{{ char.data.deets.ideal }}</span
-    >, but my <q-input v-if="config.data.edit" class="col" label="Flaw" v-model="char.data.deets.flaw" dense autogrow /><span v-else>{{
-      char.data.deets.flaw
-    }}</span>
-    side can get in my way.
-  </div>
+    <div class="row items-baseline">
+      I believe in
+      <q-input class="q-mx-sm" label="Ideal" v-model="char.data.deets.ideal" dense autogrow />, but my
+      <q-input class="q-mx-sm" label="Flaw" v-model="char.data.deets.flaw" dense autogrow /> side can get in my way.
+    </div>
 
-  <div class="row items-baseline q-gutter-sm">
-    I dream of
-    <q-input v-if="config.data.edit" class="col" label="Dream" v-model="char.data.deets.dream" dense autogrow /><span v-else>{{ char.data.deets.dream }}</span
-    >.
+    <div class="row items-baseline">
+      I dream of
+      <q-input class="q-mx-sm" label="Dream" v-model="char.data.deets.dream" dense autogrow />.
+    </div>
+  </div>
+  <div v-else>
+    <div class="row">
+      My name is {{ char.data.name }}, ({{ char.data.deets.pronouns }}), I'm {{ char.data.deets.age }} years old and stand {{ char.data.deets.height }} tall.
+    </div>
+    <div class="row">I'm the party's {{ selectedRoles.join('/') }}.</div>
+    <div class="row">When people see me, they first notice my {{ char.data.deets.body }}, {{ char.data.deets.face }}, and {{ char.data.deets.vibe }}.</div>
+    <div class="row">I wear {{ char.data.deets.wear[0] }}, {{ char.data.deets.wear[1] }} and move with {{ char.data.deets.move }}.</div>
+    <div class="row">I'm from {{ char.data.deets.from }}, where my people are known for {{ char.data.deets.knownFor }}.</div>
+    <div class="row">I believe in {{ char.data.deets.ideal }}, but my {{ char.data.deets.flaw }} side can get in my way.</div>
+    <div class="row">I dream of{{ char.data.deets.dream }}.</div>
   </div>
 </template>
 

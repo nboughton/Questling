@@ -7,7 +7,7 @@ import { defineComponent, onMounted, ref, watch } from 'vue';
 
 import { useCharacterStore } from './stores/character';
 import { useConfigStore } from './stores/config';
-import { debounce } from 'quasar';
+import { debounce, useQuasar } from 'quasar';
 
 import { sleep } from 'src/lib/util';
 
@@ -16,16 +16,15 @@ export default defineComponent({
   setup() {
     const loaded = ref(false);
     const char = useCharacterStore();
+    const config = useConfigStore();
 
-    //const $q = useQuasar();
-    //$q.dark.set(true);
+    const $q = useQuasar();
+    $q.dark.set(config.data.darkMode);
 
     onMounted(async () => {
       await char.populateStore();
       loaded.value = true;
     });
-
-    const config = useConfigStore();
 
     watch(
       () => config.$state,
@@ -33,6 +32,11 @@ export default defineComponent({
         await config.save();
       },
       { deep: true }
+    );
+
+    watch(
+      () => config.$state.data.darkMode,
+      () => $q.dark.set(config.data.darkMode)
     );
 
     watch(

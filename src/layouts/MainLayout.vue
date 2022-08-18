@@ -5,12 +5,11 @@
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title> Questling </q-toolbar-title>
-        <!--q-toggle label="Edit" v-model="config.data.edit" />
-        <q-btn icon="mdi-dice-d20" flat color="white" /-->
+        <q-btn icon="mdi-dice-d20" label="Roll the Die" color="black" @click="rollAction" />
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" side="left" overlay bordered>
+    <q-drawer v-model="leftDrawerOpen" side="left" overlay bordered elevated>
       <!-- drawer content -->
       <q-btn class="full-width" label="New Character" flat @click="addCharacter" icon-right="add" />
       <q-list>
@@ -25,7 +24,7 @@
           <q-item-section @click="config.data.current = item.id" class="row full-width no-wrap heading">
             {{ item.name || 'unnamed character' }}
           </q-item-section>
-          <q-item-section class="col-shrink" v-if="config.data.index.length > 1 && config.data.edit">
+          <q-item-section class="col-shrink" v-if="config.data.index.length > 1">
             <q-btn icon="delete" flat dense @click="removeCharacter(item.id)" />
           </q-item-section>
         </q-item>
@@ -53,16 +52,23 @@
             <q-tooltip>Load a previously exported character database</q-tooltip>
           </q-item-section>
         </q-item>
+
+        <q-separator size="lg" />
+
+        <q-item>
+          <q-item-section>
+            <q-item-label>Dark Mode</q-item-label>
+          </q-item-section>
+          <q-item-section avatar>
+            <q-toggle v-model="config.data.darkMode" />
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
       <router-view />
     </q-page-container>
-
-    <q-page-sticky position="bottom-right" :offset="[20, 20]">
-      <q-btn fab icon="mdi-dice-d20" label="Roll the Die" color="black" size="xl" @click="rollAction" />
-    </q-page-sticky>
   </q-layout>
 
   <q-dialog v-model="showDataLoad" :maximized="$q.platform.is.mobile">
@@ -137,10 +143,12 @@ export default defineComponent({
             return 'mdi-dice-d20';
         }
       };
+
       $q.notify({
         position: 'center',
         color: 'black',
-        message: `${r.roll}: ${r.result}`,
+        message: `<div class="page-content text-justify">${r.roll}: ${r.result}</div>`,
+        html: true,
         timeout: 0,
 
         icon: icon(),
