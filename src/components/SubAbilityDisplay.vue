@@ -4,9 +4,8 @@
     <span class="dmg-box" v-if="ability.dmg">{{ ability.dmg }}</span>
     <span class="text-block" v-html="ability.text" />
   </div>
-  <div class="col-12">
-    <roll-table v-if="ability.table" :table="ability.table" />
-  </div>
+
+  <roll-table v-if="ability.table" :table="ability.table" />
 </template>
 
 <script lang="ts">

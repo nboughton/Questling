@@ -1,7 +1,10 @@
 <template>
   <q-card flat>
     <q-card-section class="column">
-      <q-input class="row" v-model="note.name" label="Title" />
+      <div class="row items-center justify-between">
+        <q-input class="col-grow" v-model="note.name" label="Title" />
+        <q-btn class="col-shrink" icon="delete" flat dense rounded @click="$emit('delete')" />
+      </div>
       <div class="row items-center justify-between">
         <q-select class="col-grow" v-model="note.tags" use-chips multiple :options="char.getTags" label="Tags" borderless />
         <q-btn class="col-shrink" icon="add" flat dense rounded @click="addTag" />
@@ -24,7 +27,7 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'delete'],
   setup(props, { emit }) {
     const note = ref(props.modelValue);
     watch(

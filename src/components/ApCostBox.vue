@@ -1,5 +1,5 @@
 <template>
-  <span class="ap-cost-box" v-if="ap || ap == 0" @click="spendAp">{{ ap }}</span>
+  <span class="ap-cost-box" v-if="ap || ap == 0" @click="spendAp">{{ ap }}<q-tooltip>Click to spend AP</q-tooltip></span>
 </template>
 
 <script lang="ts">

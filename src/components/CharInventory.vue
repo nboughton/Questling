@@ -14,21 +14,21 @@
         <q-tooltip>Remove this item</q-tooltip>
       </q-btn>
     </q-card-section>
-    <q-card-section class="row q-py-sm q-my-sm">
+    <q-card-section v-if="item.text" class="row q-py-sm q-my-sm">
       <p class="abl-text">
         <span class="dmg-box" v-if="item.dmg">{{ item.dmg }}</span>
         {{ item.text }}
       </p>
     </q-card-section>
-    <q-card-section class="row q-py-sm q-my-sm" v-for="(abl, ablIndex) of char.data.inventory[index].subAbilities" :key="`abl-${ablIndex}`">
+    <q-card-section v-for="(abl, ablIndex) of char.data.inventory[index].subAbilities" :key="`abl-${ablIndex}`">
       <sub-ability-display :ability="abl" />
     </q-card-section>
   </q-card>
 
   <q-input class="row" label="Tiny Items" v-model="char.data.tinyItems" autogrow />
 
-  <q-dialog v-model="showEditor">
-    <q-card style="min-width: 50%">
+  <q-dialog v-model="showEditor" :maximised="$q.platform.is.mobile">
+    <q-card style="min-width: 50%; max-width: 90%">
       <q-card-section class="row justify-between items-center"
         ><h5 class="q-my-sm heading col-grow">Item Editor</h5>
         <q-btn class="col-shrink" icon="close" flat dense rounded @click="showEditor = false"

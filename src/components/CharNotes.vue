@@ -12,7 +12,7 @@
   </q-input>
 
   <div v-for="(note, index) of char.data.notes" :key="`notes-${index}`">
-    <note-display v-if="showNote(note)" v-model="char.data.notes[index]" />
+    <note-display v-if="showNote(note)" v-model="char.data.notes[index]" @delete="removeNote(index)" />
   </div>
 </template>
 

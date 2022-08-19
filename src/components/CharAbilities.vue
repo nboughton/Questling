@@ -23,28 +23,29 @@
     </q-tabs>
 
     <q-tab-panels v-model="tabKeys[roleIndex]">
-      <q-tab-panel class="q-pa-none q-ma-none" v-for="(path, pathKey, pathIndex) of role.paths" :key="`panel-${roleKey}-${pathKey}`" :name="pathKey">
-        <!--ABILITY TABS-->
-        <q-tabs v-model="subTabKeys[roleKey][pathIndex]" align="justify" class="bg-grey-9 text-white q-my-none lower-tabs" dense>
-          <q-tab
-            :alert="abl.learned === true"
-            alert-icon="star"
-            v-for="abl of path"
-            :key="`tab-${roleKey}-${pathKey}-${abl.name}`"
+      <q-tab-panel class="q-pa-none q-ma-none" v-for="(path, pathKey) of role.paths" :key="`panel-${roleKey}-${pathKey}`" :name="pathKey">
+        <!--ACCORDION LAYOUT-->
+        <q-list bordered>
+          <q-expansion-item
+            v-for="(abl, ablIndex) of path"
+            :key="`exp-${roleKey}-${pathKey}-${abl.name}`"
+            :group="`abilties-${roleKey}-${pathKey}`"
             :label="abl.name"
-            :name="abl.name"
-          />
-        </q-tabs>
-
-        <q-tab-panels v-model="subTabKeys[roleKey][pathIndex]">
-          <q-tab-panel class="q-pa-none q-ma-none" v-for="(abl, ablIndex) of path" :key="`panel-${roleKey}-${pathKey}-${abl.name}`" :name="abl.name">
-            <ability-display
-              :ability="abl"
-              @learned="char.data.roles[roleKey].paths[pathKey][ablIndex].learned = !char.data.roles[roleKey].paths[pathKey][ablIndex].learned"
-            />
-          </q-tab-panel>
-        </q-tab-panels>
-        <!--END ABILITY TABS-->
+            :icon="abl.learned ? 'star' : 'star_outline'"
+          >
+            <q-separator />
+            <q-card>
+              <q-card-section class="q-mt-none q-pt-none">
+                <ability-display
+                  :ability="abl"
+                  @learned="char.data.roles[roleKey].paths[pathKey][ablIndex].learned = !char.data.roles[roleKey].paths[pathKey][ablIndex].learned"
+                />
+              </q-card-section>
+            </q-card>
+            <q-separator />
+          </q-expansion-item>
+        </q-list>
+        <!--END ACCORDION LAYOUT-->
       </q-tab-panel>
     </q-tab-panels>
     <!--END PATH TABS-->
@@ -62,7 +63,6 @@ export default defineComponent({
   setup() {
     const char = useCharacterStore();
     const tabKeys = ref([] as string[]);
-    const subTabKeys = ref({} as { [index: string]: string[] }); // [index: role]: [index: path]: string (abl name) ?
     const displayToggles = ref({} as { [index: string]: boolean }); // true = all, false = learned
 
     onMounted(() => {
@@ -71,10 +71,6 @@ export default defineComponent({
 
         const path = Object.keys(char.data.roles[role].paths)[0];
         tabKeys.value.push(path);
-        Object.keys(char.data.roles[role].paths).forEach((pathKey) => {
-          if (!subTabKeys.value[role]) subTabKeys.value[role] = [];
-          subTabKeys.value[role].push(char.data.roles[role].paths[pathKey][0].name);
-        });
       }
     });
 
@@ -140,7 +136,6 @@ export default defineComponent({
     return {
       char,
       tabKeys,
-      subTabKeys,
       displayToggles,
       knownAbilities,
       showKnown,

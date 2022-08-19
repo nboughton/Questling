@@ -1,7 +1,7 @@
 <template>
   <q-page :class="`page-content q-px-${padding}`" padding>
     <div class="row justify-between items-center">
-      <q-input class="col-2" type="number" :max="10" :min="0" v-model.number="char.data.hp" borderless>
+      <q-input class="col-2" type="number" :max="10" :min="0" v-model.number="char.data.hp" borderless input-class="heading" input-style="font-size: x-large;">
         <template v-slot:prepend>
           <div class="heading q-mr-sm">HP</div>
         </template>
@@ -11,7 +11,15 @@
         {{ char.data.name }} <span v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</span>
       </div>
 
-      <q-input class="col-2" type="number" :min="0" v-model.number="char.data.ap" borderless input-style="text-align: right;">
+      <q-input
+        class="col-2"
+        type="number"
+        :min="0"
+        v-model.number="char.data.ap"
+        borderless
+        input-class="heading"
+        input-style="text-align: right; font-size: x-large;"
+      >
         <template v-slot:append>
           <div class="heading">AP</div>
         </template>
