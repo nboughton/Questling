@@ -55,8 +55,7 @@ export default defineComponent({
     const removeAbility = (index: number) =>
       $q
         .dialog({
-          title: 'Confirm delete',
-          message: 'Remove this ability?',
+          title: 'Remove this ability?',
           cancel: true,
         })
         .onOk(() => obj.value.splice(index, 1));
@@ -65,8 +64,7 @@ export default defineComponent({
     const removeTable = (index: number) =>
       $q
         .dialog({
-          title: 'Confirm delete',
-          message: 'Delete the table?',
+          title: 'Delete the table?',
           cancel: true,
         })
         .onOk(() => (obj.value[index].table = undefined));

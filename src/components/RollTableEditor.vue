@@ -42,8 +42,7 @@ export default defineComponent({
     const removeRow = (index: number) =>
       $q
         .dialog({
-          title: 'Confirm delete',
-          message: 'Remove this row?',
+          title: 'Remove this row?',
           cancel: true,
         })
         .onOk(() => rows.value.splice(index, 1));

@@ -62,7 +62,7 @@ export default defineComponent({
   setup() {
     const char = useCharacterStore();
     const tabKeys = ref([] as string[]);
-    const subTabKeys = ref({} as { [index: string]: string[] });
+    const subTabKeys = ref({} as { [index: string]: string[] }); // [index: role]: [index: path]: string (abl name) ?
     const displayToggles = ref({} as { [index: string]: boolean }); // true = all, false = learned
 
     onMounted(() => {

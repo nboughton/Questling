@@ -1,20 +1,35 @@
 <template>
   <q-page :class="`page-content q-px-${padding}`" padding>
-    <div class="row justify-evenly items-baseline">
-      <q-input class="col-2" type="number" label="HP" v-model.number="char.data.hp" />
-      <q-input class="col-6" label="Name" v-model="char.data.name" />
-      <q-input class="col-2" type="number" label="AP" v-model.number="char.data.ap" />
+    <div class="row justify-between items-center">
+      <q-input class="col-2" type="number" :max="10" :min="0" v-model.number="char.data.hp" borderless>
+        <template v-slot:prepend>
+          <div class="heading q-mr-sm">HP</div>
+        </template>
+      </q-input>
+
+      <div class="col-6 heading text-strong text-center">
+        {{ char.data.name }} <span v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</span>
+      </div>
+
+      <q-input class="col-2" type="number" :min="0" v-model.number="char.data.ap" borderless input-style="text-align: right;">
+        <template v-slot:append>
+          <div class="heading">AP</div>
+        </template>
+      </q-input>
     </div>
+
     <q-tabs v-model="tab" align="justify">
       <q-tab name="fluff" label="Profile" class="heading" />
       <q-tab name="abilities" label="Abilities" class="heading" />
       <q-tab name="inventory" label="Inventory" class="heading" />
+      <q-tab name="notes" label="Notes" class="heading" />
     </q-tabs>
 
     <q-tab-panels v-model="tab" animated>
-      <q-tab-panel name="fluff"><CharFluff /></q-tab-panel>
-      <q-tab-panel name="abilities"><CharAbilities /></q-tab-panel>
-      <q-tab-panel name="inventory"><CharInventory /></q-tab-panel>
+      <q-tab-panel name="fluff"><char-fluff /></q-tab-panel>
+      <q-tab-panel name="abilities"><char-abilities /></q-tab-panel>
+      <q-tab-panel name="inventory"><char-inventory /></q-tab-panel>
+      <q-tab-panel name="notes"><char-notes /></q-tab-panel>
     </q-tab-panels>
   </q-page>
 </template>
@@ -25,11 +40,12 @@ import { computed, defineComponent, ref } from 'vue';
 import CharFluff from 'src/components/CharFluff.vue';
 import CharAbilities from 'src/components/CharAbilities.vue';
 import CharInventory from 'src/components/CharInventory.vue';
+import CharNotes from 'src/components/CharNotes.vue';
 import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { CharFluff, CharAbilities, CharInventory },
+  components: { CharFluff, CharAbilities, CharInventory, CharNotes },
   setup() {
     const tab = ref('fluff');
     const char = useCharacterStore();

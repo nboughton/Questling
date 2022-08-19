@@ -55,6 +55,15 @@
 
         <q-separator size="lg" />
 
+        <q-item clickable v-ripple @click="showAbout = true">
+          <q-item-section avatar>
+            <q-icon name="info" />
+          </q-item-section>
+          <q-item-section class="heading"> About </q-item-section>
+        </q-item>
+
+        <q-separator size="lg" />
+
         <q-item>
           <q-item-section>
             <q-item-label>Dark Mode</q-item-label>
@@ -87,12 +96,32 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+
+  <q-dialog v-model="showAbout">
+    <q-card>
+      <q-card-section class="row items-center justify-between bg-grey-9">
+        <h5 class="col-grow heading q-py-none q-my-none">About</h5>
+        <q-btn class="col-shrink" icon="close" flat dense rounded @click="showAbout = false" />
+      </q-card-section>
+      <q-card-section>
+        Quest RPG is &copy;<a href="https://twitter.com/chillmage">TC Sottek</a> and <a href="https://www.adventure.game/">The Adventure Guild</a>. Questling is
+        not associated with, or endorsed by, the copyright owners in any way.
+      </q-card-section>
+      <q-card-section>
+        The Questling codebase is &copy; <a href="https://twitter.com/tiberianpun">Nick Boughton</a>, with the exception of the Ability texts. Please see the
+        <a href="https://github.com/nboughton/questling">Github repository</a> to raise issues and submit bug reports.
+      </q-card-section>
+      <q-card-section>
+        If you like this app, and want to support me, you can always <a href="https://ko-fi.com/tiberianpun">buy me a coffee</a>.
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts">
 import { useQuasar } from 'quasar';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { IIndexItem, ITableRow } from 'src/components/models';
+import { IIndexItem } from 'src/components/models';
 import { useCharacterStore } from 'src/stores/character';
 import { useConfigStore } from 'src/stores/config';
 import { defineComponent, ref } from 'vue';
@@ -122,6 +151,8 @@ export default defineComponent({
       character.loadData(f);
       showDataLoad.value = false;
     };
+
+    const showAbout = ref(false);
 
     const rollAction = () => {
       const r = coreRoll();
@@ -179,6 +210,7 @@ export default defineComponent({
 
       rollAction,
 
+      showAbout,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

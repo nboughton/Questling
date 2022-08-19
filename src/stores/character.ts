@@ -10,7 +10,16 @@ export const useCharacterStore = defineStore('character', {
   state: () => {
     return { data: NewCharacter() };
   },
-  getters: {},
+  getters: {
+    getTags: (state: { data: ICharacter }): string[] => {
+      const t: string[] = [];
+      state.data.notes.forEach((note) => note.tags.forEach((tag) => t.push(tag)));
+
+      const dedupe = [...new Set(t)];
+      dedupe.sort();
+      return dedupe;
+    },
+  },
   actions: {
     async populateStore() {
       const config = useConfigStore();
@@ -46,9 +55,7 @@ export const useCharacterStore = defineStore('character', {
 
     async save() {
       const storeCopy = deepCopy(this.data) as ICharacter;
-      await db.character
-        .update(this.data.id, storeCopy)
-        .catch((err) => console.log(err));
+      await db.character.update(this.data.id, storeCopy).catch((err) => console.log(err));
 
       const config = useConfigStore();
       await config.updateIndex();
@@ -113,9 +120,7 @@ export const useCharacterStore = defineStore('character', {
     loadData(file: File) {
       const reader = new FileReader();
       reader.onload = async (ev) => {
-        const characters = JSON.parse(
-          ev.target?.result as string
-        ) as ICharacter[];
+        const characters = JSON.parse(ev.target?.result as string) as ICharacter[];
         try {
           await db.character.bulkPut(characters);
           // Repopulate store with updated content

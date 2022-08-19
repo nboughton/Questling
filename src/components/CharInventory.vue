@@ -29,7 +29,10 @@
 
   <q-dialog v-model="showEditor">
     <q-card style="min-width: 50%">
-      <q-card-section class="row"><h5 class="q-my-sm heading">Item Editor</h5></q-card-section>
+      <q-card-section class="row justify-between items-center"
+        ><h5 class="q-my-sm heading col-grow">Item Editor</h5>
+        <q-btn class="col-shrink" icon="close" flat dense rounded @click="showEditor = false"
+      /></q-card-section>
       <q-card-section class="column"><item-editor v-model="char.data.inventory[itemToEdit]" /></q-card-section>
     </q-card>
   </q-dialog>
@@ -67,8 +70,7 @@ export default defineComponent({
     const removeItem = (index: number) =>
       $q
         .dialog({
-          title: 'Confirm',
-          message: 'Delete this item?',
+          title: 'Delete this item?',
           cancel: true,
         })
         .onOk(() => char.data.inventory.splice(index, 1));

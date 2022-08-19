@@ -1,6 +1,6 @@
 <template>
   <div class="abl-text">
-    <span class="ap-cost-box" v-if="ability.ap || ability.ap == 0">{{ ability.ap }}</span>
+    <ap-cost-box :ap="ability.ap" />
     <span class="dmg-box" v-if="ability.dmg">{{ ability.dmg }}</span>
     <span class="text-block" v-html="ability.text" />
   </div>
@@ -13,9 +13,10 @@
 import { defineComponent, PropType } from 'vue';
 import { ISubAbility } from './models';
 import RollTable from './RollTable.vue';
+import ApCostBox from './ApCostBox.vue';
 export default defineComponent({
   name: 'SubAbilityDisplay',
-  components: { RollTable },
+  components: { RollTable, ApCostBox },
   props: {
     ability: {
       type: Object as PropType<ISubAbility>,

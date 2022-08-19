@@ -7,6 +7,9 @@ export interface IHasID {
   id: string;
 }
 
+export interface IHasText {
+  text: string;
+}
 export interface IHasSubAbilities {
   subAbilities: ISubAbility[];
 }
@@ -36,6 +39,7 @@ export interface ICharacter extends IHasName, IHasID {
   hp: number;
   ap: number;
   roles: { [index: string]: IRole };
+  notes: INote[];
   deets: {
     pronouns: string;
     age: number;
@@ -55,6 +59,10 @@ export interface ICharacter extends IHasName, IHasID {
   tinyItems: string;
 }
 
+export interface INote extends IHasName, IHasText {
+  tags: string[];
+}
+
 export interface IRole {
   paths: { [index: string]: IAbility[] };
   selected?: boolean;
@@ -67,9 +75,8 @@ export interface IAbility extends IHasName, IHasSubAbilities {
   roll?: boolean;
 }
 
-export interface ISubAbility extends IMightDoDMG, IMightHaveTable {
+export interface ISubAbility extends IHasText, IMightDoDMG, IMightHaveTable {
   ap?: number | 'X';
-  text: string;
 }
 
 export interface ITableRow {
@@ -83,9 +90,7 @@ export interface IRollResult {
   result: string;
 }
 
-export interface IInventoryItem extends IHasName, IHasSubAbilities, IMightDoDMG {
-  text: string;
-}
+export interface IInventoryItem extends IHasName, IHasText, IHasSubAbilities, IMightDoDMG {}
 
 export interface IKnownCount {
   known: number;
