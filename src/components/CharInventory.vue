@@ -6,7 +6,7 @@
     </q-btn>
   </h5>
 
-  <q-card class="column inventory-content q-my-none q-py-none q-mb-md" v-for="(item, index) of char.data.inventory" :key="index">
+  <q-card flat class="inventory-content q-my-none q-py-none q-mb-md" v-for="(item, index) of char.data.inventory" :key="index">
     <q-card-section class="row items-center q-py-none q-my-none">
       <h5 class="col-grow heading q-my-sm">{{ item.name }}</h5>
       <q-btn class="col-shrink" icon="edit" flat dense rounded @click="editItem(index)" />
@@ -14,15 +14,19 @@
         <q-tooltip>Remove this item</q-tooltip>
       </q-btn>
     </q-card-section>
+
     <q-card-section v-if="item.text" class="row q-py-sm q-my-sm">
       <p class="abl-text">
         <span class="dmg-box" v-if="item.dmg">{{ item.dmg }}</span>
         {{ item.text }}
       </p>
     </q-card-section>
+
     <q-card-section v-for="(abl, ablIndex) of char.data.inventory[index].subAbilities" :key="`abl-${ablIndex}`">
       <sub-ability-display :ability="abl" />
     </q-card-section>
+
+    <q-separator />
   </q-card>
 
   <q-input class="row" label="Tiny Items" v-model="char.data.tinyItems" autogrow />

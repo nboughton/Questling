@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> Questling </q-toolbar-title>
+        <q-toolbar-title class="pull-quote"> Questling </q-toolbar-title>
         <q-btn icon="mdi-dice-d20" label="Roll the Die" color="black" @click="rollAction" />
       </q-toolbar>
     </q-header>

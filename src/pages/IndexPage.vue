@@ -3,12 +3,15 @@
     <div class="row justify-between items-center">
       <q-input class="col-2" type="number" :max="10" :min="0" v-model.number="char.data.hp" borderless input-class="heading" input-style="font-size: x-large;">
         <template v-slot:prepend>
-          <div class="heading q-mr-sm">HP</div>
+          <div class="pull-quote q-mr-sm">HP</div>
         </template>
       </q-input>
 
-      <div class="col-6 heading text-strong text-center">
-        {{ char.data.name }} <span v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</span>
+      <div class="col-6">
+        <div class="row full-width">
+          <div class="col-12 text-center pull-quote">{{ char.data.name }}</div>
+          <div class="col-12 text-center heading" v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</div>
+        </div>
       </div>
 
       <q-input
@@ -21,7 +24,7 @@
         input-style="text-align: right; font-size: x-large;"
       >
         <template v-slot:append>
-          <div class="heading">AP</div>
+          <div class="pull-quote">AP</div>
         </template>
       </q-input>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="column">
+  <div>
     <div class="row items-center justify-between">
       <div class="col-grow heading">Table</div>
       <q-btn class="col-shrink" icon="mdi-dice-d20" @click="roll" label="Roll The Die" flat dense rounded />
@@ -8,11 +8,9 @@
     <div class="row">{{ result ? result : 'Roll result shows here' }}</div>
 
     <q-separator />
-    <div class="row items-center justify-between" v-for="(row, index) of table" :key="index">
+    <div class="row items-center" v-for="(row, index) of table" :key="index" style="border-bottom: 1px solid lightgrey">
       <div class="col-xs-2 col-sm-1">
-        <strong
-          >{{ row.floor }}<span v-if="row.ceiling && row.ceiling !== row.floor"> - {{ row.ceiling }}</span></strong
-        >
+        {{ row.floor }}<span v-if="row.ceiling && row.ceiling !== row.floor"> - {{ row.ceiling }}</span>
       </div>
       <div class="col-xs-10 col-sm-11">{{ row.result }}</div>
     </div>
