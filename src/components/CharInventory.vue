@@ -1,5 +1,5 @@
 <template>
-  <h5 class="row items-center heading">
+  <h5 class="row items-center heading q-my-none">
     Carrying {{ char.data.inventory.length }} of 12 items
     <q-btn icon="add" flat dense rounded @click="addItem">
       <q-tooltip>Add inventory item</q-tooltip>

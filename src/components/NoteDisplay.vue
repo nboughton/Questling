@@ -1,5 +1,5 @@
 <template>
-  <q-card flat>
+  <q-card class="q-mb-md">
     <q-card-section class="column">
       <div class="row items-center justify-between">
         <q-input class="col-grow" v-model="note.name" label="Title" />

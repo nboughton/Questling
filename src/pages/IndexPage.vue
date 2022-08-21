@@ -1,13 +1,22 @@
 <template>
   <q-page :class="`page-content q-px-${padding}`" padding>
     <div class="row justify-between items-center">
-      <q-input class="col-2" type="number" :max="10" :min="0" v-model.number="char.data.hp" borderless input-class="heading" input-style="font-size: x-large;">
+      <q-input
+        class="col-xs-3 col-md-1"
+        type="number"
+        :max="10"
+        :min="0"
+        v-model.number="char.data.hp"
+        borderless
+        input-class="heading"
+        input-style="font-size: x-large;"
+      >
         <template v-slot:prepend>
           <div class="pull-quote q-mr-sm">HP</div>
         </template>
       </q-input>
 
-      <div class="col-6">
+      <div class="col-xs-6 col-md-10">
         <div class="row full-width">
           <div class="col-12 text-center pull-quote">{{ char.data.name }}</div>
           <div class="col-12 text-center heading" v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</div>
@@ -15,7 +24,7 @@
       </div>
 
       <q-input
-        class="col-2"
+        class="col-xs-3 col-md-1"
         type="number"
         :min="0"
         v-model.number="char.data.ap"
