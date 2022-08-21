@@ -36,6 +36,35 @@ export default defineComponent({
           });
         }
       }
+
+      if (typeof props.ap === 'string' && props.ap === 'X') {
+        $q.dialog({
+          title: 'Spend AP',
+          prompt: {
+            model: '',
+            type: 'number',
+          },
+          cancel: true,
+        }).onOk((data) => {
+          if (char.data.ap - +data >= 0) {
+            char.data.ap -= +data;
+            $q.notify({
+              message: `<div class="page-content">${+data} AP spent</div>`,
+              html: true,
+              color: 'black',
+              textColor: 'white',
+            });
+          } else {
+            $q.notify({
+              message: '<div class="page-content">Not enough AP</div>',
+              html: true,
+              type: 'warning',
+              color: 'black',
+              textColor: 'white',
+            });
+          }
+        });
+      }
     };
 
     return {
