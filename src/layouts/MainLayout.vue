@@ -82,7 +82,7 @@
 
   <q-dialog v-model="showDataLoad" :maximized="$q.platform.is.mobile">
     <q-card>
-      <q-card-section class="text-center text-bold bg-secondary heading"><h5 class="q-my-none q-py-none">Load Character Database</h5></q-card-section>
+      <q-card-section class="text-center text-bold bg-dark heading"><h5 class="q-my-none q-py-none text-white">Load Character Database</h5></q-card-section>
 
       <q-card-section class="text-subtitle"> Please bear in mind that this data will overwrite any existing versions of the same characters. </q-card-section>
 
@@ -100,8 +100,8 @@
   <q-dialog v-model="showAbout">
     <q-card>
       <q-card-section class="row items-center justify-between bg-grey-9">
-        <h5 class="col-grow heading q-py-none q-my-none">About</h5>
-        <q-btn class="col-shrink" icon="close" flat dense rounded @click="showAbout = false" />
+        <h5 class="col-grow heading q-py-none q-my-none text-white">About</h5>
+        <q-btn class="col-shrink" icon="close" color="white" flat dense rounded @click="showAbout = false" />
       </q-card-section>
       <q-card-section>
         Quest RPG is &copy;<a href="https://twitter.com/chillmage">TC Sottek</a> and <a href="https://www.adventure.game/">The Adventure Guild</a>. Questling is

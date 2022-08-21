@@ -31,8 +31,8 @@
 
   <q-input class="row" label="Tiny Items" v-model="char.data.tinyItems" autogrow />
 
-  <q-dialog v-model="showEditor" :maximised="$q.platform.is.mobile">
-    <q-card style="min-width: 50%; max-width: 90%">
+  <q-dialog v-model="showEditor" :maximized="$q.platform.is.mobile">
+    <q-card style="min-width: 50%">
       <q-card-section class="row justify-between items-center"
         ><h5 class="q-my-sm heading col-grow">Item Editor</h5>
         <q-btn class="col-shrink" icon="close" flat dense rounded @click="showEditor = false"

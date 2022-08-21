@@ -32,6 +32,7 @@
             :group="`abilties-${roleKey}-${pathKey}`"
             :label="abl.name"
             :icon="abl.learned ? 'star' : 'star_outline'"
+            :default-opened="ablIndex === 0"
           >
             <q-separator />
             <q-card>

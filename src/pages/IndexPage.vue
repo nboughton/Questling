@@ -12,14 +12,14 @@
         input-style="font-size: x-large;"
       >
         <template v-slot:prepend>
-          <div class="pull-quote q-mr-sm">HP</div>
+          <div class="pull-quote q-mr-md">HP</div>
         </template>
       </q-input>
 
       <div class="col-xs-6 col-md-10">
         <div class="row full-width">
           <div class="col-12 text-center pull-quote">{{ char.data.name }}</div>
-          <div class="col-12 text-center" v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</div>
+          <div class="col-12 text-center text-subtitle2" v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</div>
         </div>
       </div>
 

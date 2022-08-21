@@ -19,10 +19,10 @@ export default defineComponent({
     const config = useConfigStore();
 
     const $q = useQuasar();
-    $q.dark.set(config.data.darkMode);
 
     onMounted(async () => {
       await char.populateStore();
+      $q.dark.set(config.data.darkMode);
       loaded.value = true;
     });
 
