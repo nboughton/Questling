@@ -187,7 +187,7 @@ export default defineComponent({
         iconSize: 'lg',
         actions: [
           {
-            label: 'Dismiss',
+            icon: 'mdi-close-circle',
             color: 'white',
             handler: () => {
               /*..*/

@@ -60,7 +60,7 @@
     <div class="row">I wear {{ char.data.deets.wear[0] }}, {{ char.data.deets.wear[1] }} and move with {{ char.data.deets.move }}.</div>
     <div class="row">I'm from {{ char.data.deets.from }}, where my people are known for {{ char.data.deets.knownFor }}.</div>
     <div class="row">I believe in {{ char.data.deets.ideal }}, but my {{ char.data.deets.flaw }} side can get in my way.</div>
-    <div class="row">I dream of{{ char.data.deets.dream }}.</div>
+    <div class="row">I dream of {{ char.data.deets.dream }}.</div>
   </div>
 </template>
 
@@ -100,7 +100,8 @@ export default defineComponent({
             }).onOk(() => delete char.data.roles[role]);
           }
         });
-      }
+      },
+      { deep: true }
     );
 
     return {

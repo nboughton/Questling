@@ -5,7 +5,7 @@
     </template>
 
     <template v-slot:after>
-      <q-btn icon="add" flat rounded dense @click="addNote">
+      <q-btn icon="mdi-note-plus" flat rounded dense @click="addNote">
         <q-tooltip>Add new note</q-tooltip>
       </q-btn>
     </template>

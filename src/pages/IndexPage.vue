@@ -19,7 +19,7 @@
       <div class="col-xs-6 col-md-10">
         <div class="row full-width">
           <div class="col-12 text-center pull-quote">{{ char.data.name }}</div>
-          <div class="col-12 text-center heading" v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</div>
+          <div class="col-12 text-center" v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</div>
         </div>
       </div>
 
