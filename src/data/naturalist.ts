@@ -141,6 +141,7 @@ export const Naturalist: IRole = {
       },
       {
         name: 'Fireball',
+        roll: true,
         subAbilities: [
           {
             ap: 5,
@@ -148,31 +149,26 @@ export const Naturalist: IRole = {
             table: [
               {
                 floor: 1,
-                result:
-                  'It explodes in your face, hitting you and up to 3 nearby creatures.',
+                result: 'It explodes in your face, hitting you and up to 3 nearby creatures.',
               },
               {
                 floor: 2,
                 ceiling: 5,
-                result:
-                  "The fireball misses and hits random targets of the Guide's choice.",
+                result: "The fireball misses and hits random targets of the Guide's choice.",
               },
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  'Choose one: the explosion hits you and up to 4 creatures near impact, or the fireball fizzles into a cloud of smoke.',
+                result: 'Choose one: the explosion hits you and up to 4 creatures near impact, or the fireball fizzles into a cloud of smoke.',
               },
               {
                 floor: 11,
                 ceiling: 19,
-                result:
-                  'The explosion hits up to 4 creatures near the point of impact.',
+                result: 'The explosion hits up to 4 creatures near the point of impact.',
               },
               {
                 floor: 20,
-                result:
-                  'The explosion hits all creatures near the point of impact for double damage.',
+                result: 'The explosion hits all creatures near the point of impact for double damage.',
               },
             ],
           },
@@ -315,14 +311,12 @@ export const Naturalist: IRole = {
             table: [
               {
                 floor: 1,
-                result:
-                  'You accidentally cause a natural disaster to form. The Guide chooses the disaster.',
+                result: 'You accidentally cause a natural disaster to form. The Guide chooses the disaster.',
               },
               {
                 floor: 2,
                 ceiling: 5,
-                result:
-                  'The Guide chooses the season, and a storm begins to affect the region that makes travel more difficult.',
+                result: 'The Guide chooses the season, and a storm begins to affect the region that makes travel more difficult.',
               },
               {
                 floor: 6,
@@ -332,8 +326,7 @@ export const Naturalist: IRole = {
               {
                 floor: 11,
                 ceiling: 19,
-                result:
-                  'You choose the season and the weather (excluding disasters).',
+                result: 'You choose the season and the weather (excluding disasters).',
               },
               {
                 floor: 20,

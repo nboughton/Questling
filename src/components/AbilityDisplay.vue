@@ -5,7 +5,9 @@
       <q-tooltip>Learn this ability</q-tooltip>
     </q-checkbox>
   </div>
-  <div class="row q-pa-sm bg-black text-white heading rounded-borders" v-if="ability.roll">roll the die</div>
+  <div class="row q-mb-sm">
+    <div class="col-shrink q-pa-sm bg-black text-white heading rounded-borders" v-if="ability.roll">roll the die</div>
+  </div>
   <div v-if="ability.prefixText" v-html="ability.prefixText" />
   <div v-for="(sub, index) of ability.subAbilities" :key="index">
     <sub-ability-display :ability="sub" />

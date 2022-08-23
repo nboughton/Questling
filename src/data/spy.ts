@@ -107,19 +107,16 @@ export const Spy: IRole = {
               {
                 floor: 1,
                 ceiling: 10,
-                result:
-                  'The target learns of the bounty and places one on your head. You are not sure who bounty hunters will reach first.',
+                result: 'The target learns of the bounty and places one on your head. You are not sure who bounty hunters will reach first.',
               },
               {
                 floor: 11,
                 ceiling: 19,
-                result:
-                  'The deed will be done by the end of your next play session.',
+                result: 'The deed will be done by the end of your next play session.',
               },
               {
                 floor: 20,
-                result:
-                  'The deed will be done by the end of your play session.',
+                result: 'The deed will be done by the end of your play session.',
               },
             ],
           },
@@ -159,8 +156,7 @@ export const Spy: IRole = {
       },
       {
         name: 'Needful Hilt',
-        prefixText:
-          '<p><strong>MAGIC ITEM.</strong> A hilt to a basic weapon, like a sword or dagger.</p>',
+        prefixText: '<p><strong>MAGIC ITEM.</strong> A hilt to a basic weapon, like a sword or dagger.</p>',
         subAbilities: [
           {
             ap: 0,
@@ -170,8 +166,7 @@ export const Spy: IRole = {
       },
       {
         name: 'Shadow',
-        prefixText:
-          '<p><strong>MAGIC ITEM.</strong> A magic cape that makes everything but your shadow invisible.</p>',
+        prefixText: '<p><strong>MAGIC ITEM.</strong> A magic cape that makes everything but your shadow invisible.</p>',
         subAbilities: [
           {
             ap: 2,
@@ -213,8 +208,7 @@ export const Spy: IRole = {
       },
       {
         name: 'Cloner',
-        prefixText:
-          '<p><strong>MAGIC ITEM.</strong> A magic amulet that allows you to eavesdrop on a communications device.</p>',
+        prefixText: '<p><strong>MAGIC ITEM.</strong> A magic amulet that allows you to eavesdrop on a communications device.</p>',
         subAbilities: [
           {
             ap: 0,
@@ -320,8 +314,7 @@ export const Spy: IRole = {
       },
       {
         name: 'Blueprint',
-        prefixText:
-          '<p><strong>MAGIC ITEM.</strong> A magical folio that reveals the floorplan of a building.</p>',
+        prefixText: '<p><strong>MAGIC ITEM.</strong> A magical folio that reveals the floorplan of a building.</p>',
         subAbilities: [
           {
             ap: 2,
@@ -378,8 +371,7 @@ export const Spy: IRole = {
       },
       {
         name: 'Nightcrawler',
-        prefixText:
-          '<p>You are a legendary charmer and intelligence gatherer, capable of quickly extracting sensitive information.</p>',
+        prefixText: '<p>You are a legendary charmer and intelligence gatherer, capable of quickly extracting sensitive information.</p>',
         subAbilities: [
           {
             ap: 4,

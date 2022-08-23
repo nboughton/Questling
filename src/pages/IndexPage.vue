@@ -12,7 +12,7 @@
         input-style="font-size: x-large;"
       >
         <template v-slot:prepend>
-          <div class="pull-quote q-mr-md">HP</div>
+          <div class="pull-quote q-pr-sm">HP</div>
         </template>
       </q-input>
 

@@ -131,8 +131,7 @@ export const Doctor: IRole = {
       },
       {
         name: 'Reinstate the Dead',
-        prefixText:
-          '<p>You touch a living creature and make it the host for a nearby spirit. Choose one:</p>',
+        prefixText: '<p>You touch a living creature and make it the host for a nearby spirit. Choose one:</p>',
         subAbilities: [
           {
             ap: 5,

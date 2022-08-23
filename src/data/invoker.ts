@@ -41,6 +41,7 @@ export const Invoker: IRole = {
     Inquiries: [
       {
         name: 'Soul Gaze',
+        roll: true,
         subAbilities: [
           {
             ap: 1,
@@ -49,8 +50,7 @@ export const Invoker: IRole = {
               {
                 floor: 1,
                 ceiling: 5,
-                result:
-                  'They resist your invasion and briefly glimpse your recent thoughts.',
+                result: 'They resist your invasion and briefly glimpse your recent thoughts.',
               },
               {
                 floor: 6,
@@ -64,8 +64,7 @@ export const Invoker: IRole = {
               },
               {
                 floor: 20,
-                result:
-                  "You learn the creature's ideal and flaw. You also learn the worst and best thing they have ever done.",
+                result: "You learn the creature's ideal and flaw. You also learn the worst and best thing they have ever done.",
               },
             ],
           },
@@ -91,6 +90,7 @@ export const Invoker: IRole = {
       },
       {
         name: 'Shadowseek',
+        roll: true,
         subAbilities: [
           {
             ap: 3,
@@ -98,26 +98,22 @@ export const Invoker: IRole = {
             table: [
               {
                 floor: 1,
-                result:
-                  'You walk in darkness. If you were searching for an enemy, they see you instead, learning your exact location.',
+                result: 'You walk in darkness. If you were searching for an enemy, they see you instead, learning your exact location.',
               },
               {
                 floor: 2,
                 ceiling: 5,
-                result:
-                  'You walk the shadow plane for 1 minute, finding only darkness.',
+                result: 'You walk the shadow plane for 1 minute, finding only darkness.',
               },
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  "You briefly glimpse the target and can see its surroundings, but you don't know if you're seeing it in the present moment.",
+                result: "You briefly glimpse the target and can see its surroundings, but you don't know if you're seeing it in the present moment.",
               },
               {
                 floor: 11,
                 ceiling: 19,
-                result:
-                  'You glimpse the target in real time, can see its surroundings, and may watch it for the next minute.',
+                result: 'You glimpse the target in real time, can see its surroundings, and may watch it for the next minute.',
               },
               {
                 floor: 20,
@@ -142,6 +138,7 @@ export const Invoker: IRole = {
       },
       {
         name: 'Compel Truth',
+        roll: true,
         subAbilities: [
           {
             ap: 1,
@@ -149,31 +146,26 @@ export const Invoker: IRole = {
             table: [
               {
                 floor: 1,
-                result:
-                  'The spell backfires. The target may compel you to answer a question truthfully instead.',
+                result: 'The spell backfires. The target may compel you to answer a question truthfully instead.',
               },
               {
                 floor: 2,
                 ceiling: 5,
-                result:
-                  'The target resists your invasion and senses you tried to manipulate them.',
+                result: 'The target resists your invasion and senses you tried to manipulate them.',
               },
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  'The target is compelled to answer one question truthfully.',
+                result: 'The target is compelled to answer one question truthfully.',
               },
               {
                 floor: 11,
                 ceiling: 19,
-                result:
-                  'The target is compelled to answer three questions truthfully.',
+                result: 'The target is compelled to answer three questions truthfully.',
               },
               {
                 floor: 20,
-                result:
-                  'The target is compelled to answer all questions truthfully for the nex',
+                result: 'The target is compelled to answer all questions truthfully for the next 5 minutes. You may set a real timer.',
               },
             ],
           },
@@ -326,6 +318,7 @@ export const Invoker: IRole = {
       },
       {
         name: 'Eternity Gate',
+        roll: true,
         subAbilities: [
           {
             ap: 7,
@@ -345,8 +338,7 @@ export const Invoker: IRole = {
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  'You receive your information and return to your body after one week. Your mind ages by 1 year in the week.',
+                result: 'You receive your information and return to your body after one week. Your mind ages by 1 year in the week.',
               },
               {
                 floor: 11,
@@ -355,8 +347,7 @@ export const Invoker: IRole = {
               },
               {
                 floor: 20,
-                result:
-                  'You receive your answer and may ask a follow-up question.',
+                result: 'You receive your answer and may ask a follow-up question.',
               },
             ],
           },

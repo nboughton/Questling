@@ -14,6 +14,7 @@ export const Fighter: IRole = {
       },
       {
         name: 'Wild Attack',
+        roll: true,
         subAbilities: [
           {
             ap: 0,
@@ -26,14 +27,12 @@ export const Fighter: IRole = {
               {
                 floor: 2,
                 ceiling: 5,
-                result:
-                  'You miss. All enemies within reach may counterattack you immediately.',
+                result: 'You miss. All enemies within reach may counterattack you immediately.',
               },
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  'You deal double damage to the enemy, but they counterattack you.',
+                result: 'You deal double damage to the enemy, but they counterattack you.',
               },
               {
                 floor: 11,
@@ -116,6 +115,7 @@ export const Fighter: IRole = {
       },
       {
         name: 'Whirlwind',
+        roll: true,
         subAbilities: [
           {
             ap: 2,
@@ -123,20 +123,17 @@ export const Fighter: IRole = {
             table: [
               {
                 floor: 1,
-                result:
-                  'You spin wildly until you feel sick, and an enemy disarms you.',
+                result: 'You spin wildly until you feel sick, and an enemy disarms you.',
               },
               {
                 floor: 2,
                 ceiling: 5,
-                result:
-                  'You hit one enemy within reach, then your weapon goes flying in the air.',
+                result: 'You hit one enemy within reach, then your weapon goes flying in the air.',
               },
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  'You hit all enemies within reach. Choose one: you deal half damage or your weapon breaks after dealing damage.',
+                result: 'You hit all enemies within reach. Choose one: you deal half damage or your weapon breaks after dealing damage.',
               },
               {
                 floor: 11,
@@ -145,8 +142,7 @@ export const Fighter: IRole = {
               },
               {
                 floor: 20,
-                result:
-                  'You strike all enemies within reach, hitting them for double damage.',
+                result: 'You strike all enemies within reach, hitting them for double damage.',
               },
             ],
           },
@@ -262,6 +258,7 @@ export const Fighter: IRole = {
       },
       {
         name: 'Yawp',
+        roll: true,
         subAbilities: [
           {
             ap: 1,
@@ -275,8 +272,7 @@ export const Fighter: IRole = {
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  'One minion flees the scene, unless their boss is present.',
+                result: 'One minion flees the scene, unless their boss is present.',
               },
               {
                 floor: 11,
