@@ -8,7 +8,7 @@
         :min="0"
         v-model.number="char.data.hp"
         borderless
-        input-class="heading"
+        input-class="pull-quote"
         input-style="font-size: x-large;"
       >
         <template v-slot:prepend>
@@ -29,7 +29,7 @@
         :min="0"
         v-model.number="char.data.ap"
         borderless
-        input-class="heading"
+        input-class="pull-quote"
         input-style="text-align: right; font-size: x-large;"
       >
         <template v-slot:append>

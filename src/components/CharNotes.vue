@@ -1,11 +1,11 @@
 <template>
-  <q-input class="row" v-model="filter" debounce="500" label="Search" hint="Search by title or tags" clearable>
+  <q-input class="row" v-model="filter" debounce="500" label="Search" hint="Search by title or tags" dense clearable>
     <template v-slot:prepend>
       <q-icon name="search" />
     </template>
 
     <template v-slot:after>
-      <q-btn icon="mdi-note-plus" flat rounded dense @click="addNote">
+      <q-btn icon="mdi-plus-circle" flat rounded dense @click="addNote">
         <q-tooltip>Add new note</q-tooltip>
       </q-btn>
     </template>
@@ -13,6 +13,7 @@
 
   <div class="q-mt-sm" v-for="(note, index) of char.data.notes" :key="`notes-${index}`">
     <note-display v-if="showNote(note)" v-model="char.data.notes[index]" @delete="removeNote(index)" />
+    <q-separator />
   </div>
 </template>
 

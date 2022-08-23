@@ -1,14 +1,14 @@
 <template>
-  <h5 class="row items-center heading q-my-none">
+  <h5 class="row items-center pull-quote q-my-none">
     Carrying {{ char.data.inventory.length }} of 12 items
-    <q-btn icon="add" flat dense rounded @click="addItem">
+    <q-btn icon="mdi-plus-circle" flat dense rounded @click="addItem">
       <q-tooltip>Add inventory item</q-tooltip>
     </q-btn>
   </h5>
 
   <q-card flat class="inventory-content q-my-none q-py-none q-mb-md" v-for="(item, index) of char.data.inventory" :key="index">
     <q-card-section class="row items-center q-py-none q-my-none">
-      <h5 class="col-grow heading q-my-sm">{{ item.name }}</h5>
+      <h5 class="col-grow pull-quote q-my-sm">{{ item.name }}</h5>
       <q-btn class="col-shrink" icon="edit" flat dense rounded @click="editItem(index)" />
       <q-btn class="col-shrink" icon="delete" flat dense @click="removeItem(index)">
         <q-tooltip>Remove this item</q-tooltip>

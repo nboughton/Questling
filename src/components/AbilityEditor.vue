@@ -1,7 +1,7 @@
 <template>
   <div class="row items-center">
     <strong class="col-grow">Add ability</strong>
-    <q-btn class="col-shrink" icon="add" flat dense rounded @click="addAbility" />
+    <q-btn class="col-shrink" icon="mdi-plus-circle" flat dense rounded @click="addAbility" />
   </div>
   <div class="column" v-for="(abl, index) of obj" :key="index">
     <div class="row items-center">

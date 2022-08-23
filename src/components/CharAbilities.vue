@@ -1,4 +1,5 @@
 <template>
+  <h6 class="pull-quote" v-if="Object.keys(char.data.roles).length === 0">Please select one or more roles on the Profile tab...</h6>
   <div v-for="(role, roleKey, roleIndex) of showKnown" :key="roleKey">
     <h5 class="heading q-py-none q-my-none text-center">
       {{ roleKey }}
@@ -70,7 +71,14 @@ export default defineComponent({
       for (const role in char.data.roles) {
         displayToggles.value[role] = knownAbilities.value[role].role.known === 0 ? true : false;
 
-        const path = Object.keys(char.data.roles[role].paths)[0];
+        let path = Object.keys(char.data.roles[role].paths)[0];
+        for (const p of Object.keys(char.data.roles[role].paths)) {
+          const k = knownPathAbilities(role, p);
+          if (k.known > 0) {
+            path = p;
+            break;
+          }
+        }
         tabKeys.value.push(path);
       }
     });
