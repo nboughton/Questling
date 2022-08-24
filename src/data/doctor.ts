@@ -1,6 +1,8 @@
 import { IRole } from 'src/components/models';
 
 export const Doctor: IRole = {
+  name: 'Doctor',
+  id: '',
   paths: {
     Healing: [
       {

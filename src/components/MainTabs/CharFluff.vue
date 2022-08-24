@@ -103,13 +103,16 @@
 </template>
 
 <script lang="ts">
+import { computed, defineComponent } from 'vue';
+
 import { useQuasar } from 'quasar';
+import { useConfigStore } from 'src/stores/config';
+import { useCharacterStore } from 'src/stores/character';
+
+import { Lists, getSuggestion } from 'src/data/profileSuggestions';
 import { Roles } from 'src/data/roles';
 import { deepCopy } from 'src/lib/util';
-import { useCharacterStore } from 'src/stores/character';
-import { useConfigStore } from 'src/stores/config';
-import { computed, defineComponent } from 'vue';
-import { Lists, getSuggestion } from 'src/data/profileSuggestions';
+
 export default defineComponent({
   name: 'CharFluff',
   setup() {

@@ -57,10 +57,10 @@
 <script lang="ts">
 import { useCharacterStore } from 'src/stores/character';
 import { computed, defineComponent, ref } from 'vue';
-import CharFluff from 'src/components/CharFluff.vue';
-import CharAbilities from 'src/components/CharAbilities.vue';
-import CharInventory from 'src/components/CharInventory.vue';
-import CharNotes from 'src/components/CharNotes.vue';
+import CharFluff from 'src/components/MainTabs/CharFluff.vue';
+import CharAbilities from 'src/components/MainTabs/CharAbilities.vue';
+import CharInventory from 'src/components/MainTabs/CharInventory.vue';
+import CharNotes from 'src/components/MainTabs/CharNotes.vue';
 import { useQuasar } from 'quasar';
 
 export default defineComponent({

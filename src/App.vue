@@ -5,9 +5,10 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, watch } from 'vue';
 
-import { useCharacterStore } from './stores/character';
-import { useConfigStore } from './stores/config';
 import { debounce, useQuasar } from 'quasar';
+import { useConfigStore } from './stores/config';
+import { useCharacterStore } from './stores/character';
+import { useRoleStore } from './stores/roles';
 
 import { sleep } from 'src/lib/util';
 
@@ -17,12 +18,16 @@ export default defineComponent({
     const loaded = ref(false);
     const char = useCharacterStore();
     const config = useConfigStore();
+    const roles = useRoleStore();
 
     const $q = useQuasar();
 
     onMounted(async () => {
-      await char.populateStore();
       $q.dark.set(config.data.darkMode);
+
+      await char.populateStore();
+      await roles.populateStore();
+
       loaded.value = true;
     });
 

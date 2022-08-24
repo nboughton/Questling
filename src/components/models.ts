@@ -63,9 +63,8 @@ export interface INote extends IHasName, IHasText {
   tags: string[];
 }
 
-export interface IRole {
+export interface IRole extends IHasName, IHasID {
   paths: { [index: string]: IAbility[] };
-  selected?: boolean;
 }
 
 export interface IAbility extends IHasName, IHasSubAbilities {

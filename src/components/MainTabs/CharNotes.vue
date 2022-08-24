@@ -18,12 +18,17 @@
 </template>
 
 <script lang="ts">
-import { useCharacterStore } from 'src/stores/character';
 import { defineComponent, ref } from 'vue';
-import { NewNote } from 'src/lib/character';
+
+import { INote } from 'src/components/models';
+
 import { useQuasar } from 'quasar';
-import { INote } from './models';
-import NoteDisplay from './NoteDisplay.vue';
+import { useCharacterStore } from 'src/stores/character';
+
+import { NewNote } from 'src/lib/character';
+
+import NoteDisplay from '../NoteDisplay.vue';
+
 export default defineComponent({
   name: 'CharNotes',
   components: { NoteDisplay },

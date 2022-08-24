@@ -1,6 +1,8 @@
 import { IRole } from 'src/components/models';
 
 export const Invoker: IRole = {
+  name: 'Invoker',
+  id: '',
   paths: {
     Invocation: [
       {

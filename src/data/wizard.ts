@@ -1,6 +1,8 @@
 import { IRole } from 'src/components/models';
 
 export const Wizard: IRole = {
+  name: 'Wizard',
+  id: '',
   paths: {
     Evocation: [
       {
@@ -37,8 +39,7 @@ export const Wizard: IRole = {
       },
       {
         name: 'Telekinesis',
-        prefixText:
-          '<p>You move a nearby creature or object using only your mind.</p>',
+        prefixText: '<p>You move a nearby creature or object using only your mind.</p>',
         subAbilities: [
           {
             ap: 1,
@@ -52,8 +53,7 @@ export const Wizard: IRole = {
       },
       {
         name: 'Last Light',
-        prefixText:
-          '<p>You must be holding a pointed object like a wand, staff, or sword to use this spell.</p>',
+        prefixText: '<p>You must be holding a pointed object like a wand, staff, or sword to use this spell.</p>',
         subAbilities: [
           {
             ap: 3,
@@ -64,8 +64,7 @@ export const Wizard: IRole = {
             text: '<p>You overload the beam. It instantly kills commoners and minions and deals 12 damage to bosses. If Last Light kills the target, it disintegrates into ash.</p>',
           },
         ],
-        suffixText:
-          '<p>The beam created by Last Light can be deflected by mirrors.</p>',
+        suffixText: '<p>The beam created by Last Light can be deflected by mirrors.</p>',
       },
     ],
 
@@ -166,14 +165,12 @@ export const Wizard: IRole = {
               {
                 floor: 2,
                 ceiling: 5,
-                result:
-                  "The party arrives safely, but nobody else does. You don't know where they went. You lose an item you are carrying.",
+                result: "The party arrives safely, but nobody else does. You don't know where they went. You lose an item you are carrying.",
               },
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  'You all arrive. Choose one: you take 7 damage from turbulence, or a magic item you are carrying is destroyed.',
+                result: 'You all arrive. Choose one: you take 7 damage from turbulence, or a magic item you are carrying is destroyed.',
               },
               {
                 floor: 11,
@@ -182,8 +179,7 @@ export const Wizard: IRole = {
               },
               {
                 floor: 20,
-                result:
-                  "Everyone arrives safely. You recover the spell's full AP cost.",
+                result: "Everyone arrives safely. You recover the spell's full AP cost.",
               },
             ],
           },
@@ -202,8 +198,7 @@ export const Wizard: IRole = {
             table: [
               {
                 floor: 1,
-                result:
-                  'You accidentally amplify the spell. If it is a harmful spell, the damage is doubled.',
+                result: 'You accidentally amplify the spell. If it is a harmful spell, the damage is doubled.',
               },
               {
                 floor: 2,
@@ -213,8 +208,7 @@ export const Wizard: IRole = {
               {
                 floor: 6,
                 ceiling: 10,
-                result:
-                  'The spell misses and hits another nearby creature or target.',
+                result: 'The spell misses and hits another nearby creature or target.',
               },
               {
                 floor: 11,
@@ -223,8 +217,7 @@ export const Wizard: IRole = {
               },
               {
                 floor: 20,
-                result:
-                  'The spell is violently canceled and its caster is hit for 1 HP.',
+                result: 'The spell is violently canceled and its caster is hit for 1 HP.',
               },
             ],
           },
@@ -241,8 +234,7 @@ export const Wizard: IRole = {
               {
                 floor: 1,
                 ceiling: 5,
-                result:
-                  'The spell reflects off of you but hits a nearby party member instead.',
+                result: 'The spell reflects off of you but hits a nearby party member instead.',
               },
               {
                 floor: 6,

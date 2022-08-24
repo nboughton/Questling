@@ -12,8 +12,11 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, watch } from 'vue';
+
 import { IInventoryItem } from './models';
+
 import AbilityEditor from './AbilityEditor.vue';
+
 export default defineComponent({
   name: 'ItemEditor',
   components: { AbilityEditor },

@@ -1,4 +1,5 @@
 import { ITableRow, IRollResult } from 'src/components/models';
+import sanitize from 'sanitize-html';
 
 export const now = (): string => {
   const fmt = (n: number): string => (n < 10 ? `0${n}` : `${n}`);
@@ -13,9 +14,7 @@ export const now = (): string => {
   return `${YYYY}${MM}${DD}_${hh}${mm}`;
 };
 
-export const sleep = (ms: number): Promise<void> => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-};
+export const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const deepCopy = <T>(obj: T): T => JSON.parse(JSON.stringify(obj)) as T;
 
@@ -25,9 +24,7 @@ export const tableRoll = (t: ITableRow[]): IRollResult => {
   const n = d(20);
   for (const row of t) {
     if (row.floor <= n) {
-      if (row.ceiling && row.ceiling >= n) {
-        return { roll: n, result: row.result };
-      } else if (!row.ceiling && row.floor === n) {
+      if ((row.ceiling && row.ceiling >= n) || (!row.ceiling && row.floor === n)) {
         return { roll: n, result: row.result };
       }
     }
@@ -67,3 +64,7 @@ export const coreRoll = (): IRollResult => {
 
   return tableRoll(table);
 };
+
+export const validTags = ['p', 'br', 'b', 'i', 'table', 'tr', 'td', 'th', 'ul', 'ol', 'li'];
+
+export const stripTags = (text: string): string => sanitize(text, { allowedTags: validTags });

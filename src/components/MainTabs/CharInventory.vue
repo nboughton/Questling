@@ -43,13 +43,16 @@
 </template>
 
 <script lang="ts">
-import { useCharacterStore } from 'src/stores/character';
-import { NewInventoryItem } from 'src/lib/character';
 import { defineComponent, ref } from 'vue';
+
 import { useQuasar } from 'quasar';
-import ItemEditor from './ItemEditor.vue';
 import { useConfigStore } from 'src/stores/config';
-import SubAbilityDisplay from './SubAbilityDisplay.vue';
+import { useCharacterStore } from 'src/stores/character';
+
+import { NewInventoryItem } from 'src/lib/character';
+
+import ItemEditor from 'src/components/ItemEditor.vue';
+import SubAbilityDisplay from 'src/components/SubAbilityDisplay.vue';
 
 export default defineComponent({
   name: 'CharInventory',

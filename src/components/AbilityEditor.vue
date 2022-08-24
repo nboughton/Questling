@@ -34,9 +34,12 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar';
 import { defineComponent, PropType, ref, watch } from 'vue';
+
 import { ISubAbility, ITableRow } from './models';
+
+import { useQuasar } from 'quasar';
+
 import RollTableEditor from './RollTableEditor.vue';
 
 export default defineComponent({

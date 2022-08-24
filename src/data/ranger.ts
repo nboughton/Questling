@@ -1,6 +1,8 @@
 import { IRole } from 'src/components/models';
 
 export const Ranger: IRole = {
+  name: 'Ranger',
+  id: '',
   paths: {
     'Story and Song': [
       {
@@ -109,8 +111,7 @@ export const Ranger: IRole = {
       },
       {
         name: 'Speak with Trees',
-        prefixText:
-          '<p>You touch a tree trunk, connecting yourself to the trees of a contiguous forest.</p>',
+        prefixText: '<p>You touch a tree trunk, connecting yourself to the trees of a contiguous forest.</p>',
         subAbilities: [
           {
             ap: 2,

@@ -55,10 +55,14 @@
 </template>
 
 <script lang="ts">
-import { useCharacterStore } from 'src/stores/character';
 import { defineComponent, onMounted, ref, computed } from 'vue';
+
 import { IKnownAbilities, IRole } from 'src/components/models';
-import AbilityDisplay from './AbilityDisplay.vue';
+
+import { useCharacterStore } from 'src/stores/character';
+
+import AbilityDisplay from '../AbilityDisplay.vue';
+
 export default defineComponent({
   name: 'CharAbilities',
   components: { AbilityDisplay },
@@ -128,7 +132,7 @@ export default defineComponent({
         }
 
         if (knownAbilities.value[role].role.known > 0) {
-          out[role] = { paths: {} };
+          out[role] = { paths: {}, name: '', id: '' };
           Object.keys(knownAbilities.value[role].paths).forEach((path) => {
             if (knownAbilities.value[role].paths[path].known > 0) {
               if (!out[role].paths[path]) out[role].paths[path] = [];
