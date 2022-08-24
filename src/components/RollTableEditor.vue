@@ -1,7 +1,7 @@
 <template>
-  <div class="row items-center q-gutter-sm">
-    <div class="col-grow"><strong>Add row</strong></div>
-    <q-btn class="col-shrink" icon="mdi-plus-circle" flat dense rounded @click="addRow"></q-btn>
+  <div class="row items-center">
+    <h6 class="heading q-py-none q-my-none">Add row</h6>
+    <q-btn icon="mdi-plus-circle" flat dense rounded @click="addRow"></q-btn>
   </div>
   <div class="row items-center justify-between" v-for="(row, index) of rows" :key="index">
     <q-input class="col-shrink" label="Floor" type="number" v-model.number="rows[index].floor" dense />

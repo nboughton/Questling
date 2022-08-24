@@ -1,7 +1,7 @@
 <template>
   <h6 class="pull-quote" v-if="Object.keys(char.data.roles).length === 0">Please select one or more roles on the Profile tab...</h6>
   <div v-for="(role, roleKey, roleIndex) of showKnown" :key="roleKey">
-    <h5 class="heading q-py-none q-my-none text-center">
+    <h5 class="pull-quote q-py-none q-my-none text-center">
       {{ roleKey }}
       ({{ knownAbilities[roleKey].role.known }}/{{ knownAbilities[roleKey].role.total }})
       <q-checkbox

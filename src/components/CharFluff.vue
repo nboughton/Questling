@@ -1,5 +1,5 @@
 <template>
-  <div class="row items-center justify-between q-gutter-sm">
+  <div class="row items-baseline justify-between q-gutter-sm">
     <span class="col-grow">Hello,</span>
     <q-toggle v-model="config.data.edit" label="Edit" checked-icon="edit" unchecked-icon="lock" />
   </div>
@@ -15,9 +15,9 @@
       <q-input class="q-mx-sm" label="Height" v-model="char.data.deets.height" dense autogrow /> tall.
     </div>
 
-    <div class="row items-center">
+    <div class="row items-baseline">
       I'm the party's
-      <q-select class="q-mx-sm" label="Role(s)" :options="availableRoles" multiple v-model="selectedRoles" dense />.
+      <q-select class="q-mx-sm col-xs-3 col-sm-2 col-md-1" label="Role(s)" :options="availableRoles" multiple v-model="selectedRoles" dense />.
     </div>
 
     <div class="row items-baseline">

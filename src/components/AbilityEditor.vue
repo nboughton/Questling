@@ -1,23 +1,35 @@
 <template>
   <div class="row items-center">
-    <strong class="col-grow">Add ability</strong>
+    <h6 class="heading q-py-none q-my-none">Add ability</h6>
     <q-btn class="col-shrink" icon="mdi-plus-circle" flat dense rounded @click="addAbility" />
   </div>
   <div class="column" v-for="(abl, index) of obj" :key="index">
-    <div class="row items-center">
-      <q-input class="col-grow" label="AP Cost" hint="Leave empty if ability has no AP cost" v-model="obj[index].ap" />
-      <q-btn class="col-shrink" icon="delete" flat dense rounded @click="removeAbility(index)" />
-    </div>
-    <!--q-input class="row" label="Damage" hint="Leave empty if ability doesn't have a damage value" v-model="obj[index].dmg" /-->
-    <q-input class="row" label="Text" v-model="obj[index].text" />
+    <q-card class="q-mb-md">
+      <div class="row items-center justify-end">
+        <!--h6 class="heading q-my-none q-py-none">Remove Ability</h6-->
+        <q-btn class="q-mr-sm q-mt-sm" icon="delete" flat dense rounded @click="removeAbility(index)">
+          <q-tooltip>Remove this ability</q-tooltip>
+        </q-btn>
+      </div>
+      <q-card-section>
+        <div class="row items-center">
+          <q-input class="col-grow" label="AP Cost" hint="Leave empty if ability has no AP cost" v-model="obj[index].ap" dense />
+        </div>
+        <!--q-input class="row" label="Damage" hint="Leave empty if ability doesn't have a damage value" v-model="obj[index].dmg" /-->
+        <q-input class="row" label="Text" v-model="obj[index].text" />
 
-    <q-separator class="q-mb-md" />
+        <q-separator class="q-mb-md" />
 
-    <q-btn v-if="!obj[index].table" class="row" icon-right="add" label="Add a roll table" @click="addTable(index)" outline />
-    <q-btn v-else class="row" icon-right="delete" label="Remove the roll table" @click="removeTable(index)" outline />
-    <q-separator class="q-mb-md" />
-    <roll-table-editor v-if="obj[index].table !== undefined" v-model="obj[index].table" />
-    <q-separator />
+        <div class="row items-center">
+          <h6 class="heading q-py-none q-my-none">{{ !obj[index].table ? 'Add' : 'Remove' }} Roll Table</h6>
+          <q-btn v-if="!obj[index].table" class="col-shrink" icon="mdi-plus-circle" flat dense rounded @click="addTable(index)" />
+          <q-btn v-else class="col-shrink" icon="delete" flat dense rounded @click="removeTable(index)" />
+        </div>
+
+        <q-separator class="q-mb-md" />
+        <roll-table-editor v-if="obj[index].table !== undefined" v-model="obj[index].table" />
+      </q-card-section>
+    </q-card>
   </div>
 </template>
 
