@@ -3,7 +3,7 @@
     <q-card-section class="column">
       <div class="row items-center justify-between">
         <q-input class="col-xs-12 col-sm-8" v-model="note.name" label="Title" dense borderless>
-          <template v-slot:append>
+          <template v-slot:after v-if="$q.screen.lt.sm">
             <q-btn icon="delete" flat dense rounded @click="$emit('delete')">
               <q-tooltip>Delete this note</q-tooltip>
             </q-btn>
@@ -14,6 +14,12 @@
           <template v-slot:append>
             <q-btn icon="mdi-plus-circle" flat dense rounded @click="addTag">
               <q-tooltip>Add tag</q-tooltip>
+            </q-btn>
+          </template>
+
+          <template v-slot:after v-if="$q.screen.gt.xs">
+            <q-btn icon="delete" flat dense rounded @click="$emit('delete')">
+              <q-tooltip>Delete this note</q-tooltip>
             </q-btn>
           </template>
         </q-select>
