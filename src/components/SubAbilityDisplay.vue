@@ -10,9 +10,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+
 import { ISubAbility } from './models';
+
 import RollTable from './RollTable.vue';
 import ApCostBox from './ApCostBox.vue';
+
 export default defineComponent({
   name: 'SubAbilityDisplay',
   components: { RollTable, ApCostBox },

@@ -31,10 +31,13 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, PropType, ref, watch } from 'vue';
+
+import { INote } from './models';
+
 import { useQuasar } from 'quasar';
 import { useCharacterStore } from 'src/stores/character';
-import { defineComponent, PropType, ref, watch } from 'vue';
-import { INote } from './models';
+
 export default defineComponent({
   name: 'NoteDisplay',
   props: {

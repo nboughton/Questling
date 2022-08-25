@@ -5,13 +5,14 @@
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
         <q-toolbar-title class="pull-quote"> Questling </q-toolbar-title>
+        <q-btn icon="save" v-if="config.data.saving" />
         <q-btn icon="mdi-dice-d20" label="Roll the Die" color="black" @click="rollAction" />
       </q-toolbar>
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" side="left" overlay bordered elevated>
       <!-- drawer content -->
-      <q-btn class="full-width" label="New Character" flat @click="addCharacter" icon-right="add" />
+      <q-btn class="full-width heading" label="New Character" flat @click="addCharacter" icon-right="mdi-plus-circle" />
       <q-list>
         <q-item
           class="items-center"
@@ -32,7 +33,7 @@
 
       <q-separator size="lg" />
 
-      <q-list class="text-primary">
+      <q-list>
         <q-item clickable v-ripple @click="character.exportData">
           <q-item-section avatar>
             <q-icon name="download" />
@@ -50,6 +51,38 @@
           <q-item-section class="heading">
             Load Character Data
             <q-tooltip>Load a previously exported character database</q-tooltip>
+          </q-item-section>
+        </q-item>
+
+        <q-separator size="lg" />
+
+        <q-item clickable v-ripple @click="showRoleManager = true">
+          <q-item-section avatar>
+            <q-icon name="edit" />
+          </q-item-section>
+          <q-item-section class="heading">
+            Manage Custom Roles
+            <q-tooltip>Add/Remove/Edit custom roles</q-tooltip>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple @click="roles.exportData">
+          <q-item-section avatar>
+            <q-icon name="download" />
+          </q-item-section>
+          <q-item-section class="heading">
+            Export Custom Roles
+            <q-tooltip>Download your custom roles database as a .json file</q-tooltip>
+          </q-item-section>
+        </q-item>
+
+        <q-item clickable v-ripple @click="showRolesLoad = true">
+          <q-item-section avatar>
+            <q-icon name="upload" />
+          </q-item-section>
+          <q-item-section class="heading">
+            Load Custom Roles
+            <q-tooltip>Load a custom roles database</q-tooltip>
           </q-item-section>
         </q-item>
 
@@ -87,12 +120,69 @@
       <q-card-section class="text-subtitle"> Please bear in mind that this data will overwrite any existing versions of the same characters. </q-card-section>
 
       <q-card-section>
-        <q-file v-model="fileToLoad" standout="bg-blue-grey text-white" :input-style="{ color: '#ECEFF4' }" label="Select File" accept=".json" />
+        <q-file v-model="fileToLoad" standout label="Select File" accept=".json" />
       </q-card-section>
 
       <q-card-actions align="center">
         <q-btn label="load" color="primary" @click="loadData" flat />
         <q-btn label="close" color="warning" @click="showDataLoad = false" flat />
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
+
+  <q-dialog v-model="showRoleManager" maximized>
+    <q-card>
+      <q-card-section class="bg-dark row justify-between">
+        <h5 class="heading q-my-none q-py-none text-white">Custom Role Manager</h5>
+        <q-btn icon="mdi-close-circle" flat dense rounded color="white" @click="showRoleManager = false" />
+      </q-card-section>
+
+      <q-card-section class="row">
+        <q-list class="col-xs-3 col-sm-2">
+          <!--LEFT COLUMN-->
+          <q-item clickable v-ripple @click="addRole">
+            <q-item-section avatar>
+              <q-icon name="mdi-plus-circle" />
+            </q-item-section>
+            <q-item-section class="heading">New Role</q-item-section>
+          </q-item>
+
+          <q-separator vertical color="black" />
+
+          <q-item v-for="(role, roleIndex) of roles.data" :key="`custom-role-${role.name}-${roleIndex}`" clickable v-ripple @click="selectedRole = roleIndex">
+            <q-item-section avatar>
+              <q-icon name="mdi-account-details" />
+            </q-item-section>
+            <q-item-section class="heading">
+              {{ role.name }}
+            </q-item-section>
+          </q-item>
+        </q-list>
+
+        <div class="col-xs-9 col-sm-10">
+          <!--RIGHT COLUMN-->
+          <role-editor v-if="selectedRole >= 0" v-model="roles.data[selectedRole]" />
+        </div>
+      </q-card-section>
+    </q-card>
+  </q-dialog>
+
+  <q-dialog v-model="showRolesLoad" :maximized="$q.platform.is.mobile">
+    <q-card>
+      <q-card-section class="text-center text-bold bg-dark heading"><h5 class="q-my-none q-py-none text-white">Load Custom Roles</h5></q-card-section>
+
+      <q-card-section class="text-subtitle">
+        Questling attempts to sanitize loaded data and remove potentially dangerous script tags however this security of user supplied data cannot be
+        guaranteed. Please be certain that you trust any data you load from external sources.
+      </q-card-section>
+
+      <q-card-section>
+        <q-file v-model="rolesFileToLoad" standout label="Select File" accept=".json" />
+      </q-card-section>
+
+      <q-card-actions align="center">
+        <q-btn label="load" color="primary" @click="loadRoles" flat />
+        <q-btn label="close" color="warning" @click="showRolesLoad = false" flat />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -119,19 +209,28 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar';
+import { defineComponent, ref } from 'vue';
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { IIndexItem } from 'src/components/models';
-import { useCharacterStore } from 'src/stores/character';
+
+import { useQuasar } from 'quasar';
 import { useConfigStore } from 'src/stores/config';
-import { defineComponent, ref } from 'vue';
+import { useCharacterStore } from 'src/stores/character';
+import { useRoleStore } from 'src/stores/roles';
+
 import { coreRoll } from 'src/lib/util';
+import { NewRole } from 'src/lib/character';
+
+import RoleEditor from 'src/components/RoleEditor.vue';
 
 export default defineComponent({
+  components: { RoleEditor },
   setup() {
+    const $q = useQuasar();
     const config = useConfigStore();
     const character = useCharacterStore();
-    const $q = useQuasar();
+    const roles = useRoleStore();
     const leftDrawerOpen = ref(false);
 
     const addCharacter = () => character.new();
@@ -152,11 +251,29 @@ export default defineComponent({
       showDataLoad.value = false;
     };
 
+    const rolesFileToLoad = ref(null);
+    const showRolesLoad = ref(false);
+    const loadRoles = () => {
+      const f: File = rolesFileToLoad.value as unknown as File;
+      roles.loadData(f);
+      showRolesLoad.value = false;
+    };
+
+    const showRoleManager = ref(false);
+    const selectedRole = ref(-1);
+    const addRole = () => roles.save(NewRole());
+    const removeRole = (index: number) =>
+      $q
+        .dialog({
+          title: `Delete ${roles.data[index].name}?`,
+          cancel: true,
+        })
+        .onOk(() => roles.delete(roles.data[index]));
+
     const showAbout = ref(false);
 
     const rollAction = () => {
       const r = coreRoll();
-
       const icon = (): string => {
         switch (true) {
           case RegExp('^CATASTROPHE').test(r.result):
@@ -169,19 +286,16 @@ export default defineComponent({
             return 'mdi-emoticon-happy';
           case RegExp('^TRIUMPH').test(r.result):
             return 'mdi-emoticon-kiss';
-
           default:
             return 'mdi-dice-d20';
         }
       };
-
       $q.notify({
         position: 'center',
         color: 'black',
         message: `<div class="page-content text-justify">${r.roll}: ${r.result}</div>`,
         html: true,
         timeout: 0,
-
         icon: icon(),
         iconColor: 'white',
         iconSize: 'lg',
@@ -196,7 +310,6 @@ export default defineComponent({
         ],
       });
     };
-
     return {
       config,
 
@@ -208,8 +321,16 @@ export default defineComponent({
       showDataLoad,
       loadData,
 
-      rollAction,
+      roles,
+      rolesFileToLoad,
+      showRolesLoad,
+      loadRoles,
+      showRoleManager,
+      selectedRole,
+      addRole,
+      removeRole,
 
+      rollAction,
       showAbout,
       leftDrawerOpen,
       toggleLeftDrawer() {

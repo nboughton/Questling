@@ -39,14 +39,14 @@
     </div>
 
     <q-tabs v-model="tab" align="justify">
-      <q-tab name="fluff" label="Profile" class="heading" />
+      <q-tab name="profile" label="Profile" class="heading" />
       <q-tab name="abilities" label="Abilities" class="heading" />
       <q-tab name="inventory" label="Inventory" class="heading" />
       <q-tab name="notes" label="Notes" class="heading" />
     </q-tabs>
 
     <q-tab-panels v-model="tab" animated>
-      <q-tab-panel name="fluff"><char-fluff /></q-tab-panel>
+      <q-tab-panel name="profile"><char-profile /></q-tab-panel>
       <q-tab-panel name="abilities"><char-abilities /></q-tab-panel>
       <q-tab-panel name="inventory"><char-inventory /></q-tab-panel>
       <q-tab-panel name="notes"><char-notes /></q-tab-panel>
@@ -55,19 +55,21 @@
 </template>
 
 <script lang="ts">
-import { useCharacterStore } from 'src/stores/character';
 import { computed, defineComponent, ref } from 'vue';
-import CharFluff from 'src/components/MainTabs/CharFluff.vue';
+
+import { useQuasar } from 'quasar';
+import { useCharacterStore } from 'src/stores/character';
+
+import CharProfile from 'src/components/MainTabs/CharProfile.vue';
 import CharAbilities from 'src/components/MainTabs/CharAbilities.vue';
 import CharInventory from 'src/components/MainTabs/CharInventory.vue';
 import CharNotes from 'src/components/MainTabs/CharNotes.vue';
-import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'IndexPage',
-  components: { CharFluff, CharAbilities, CharInventory, CharNotes },
+  components: { CharProfile, CharAbilities, CharInventory, CharNotes },
   setup() {
-    const tab = ref('fluff');
+    const tab = ref('profile');
     const char = useCharacterStore();
     const $q = useQuasar();
     const padding = computed((): string => ($q.screen.lt.md ? 'sm' : 'xl'));

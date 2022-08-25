@@ -3,9 +3,11 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue';
+
 import { useQuasar } from 'quasar';
 import { useCharacterStore } from 'src/stores/character';
-import { defineComponent } from 'vue';
+
 export default defineComponent({
   name: 'ApCostBox',
   props: {

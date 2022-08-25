@@ -12,9 +12,12 @@
 </template>
 
 <script lang="ts">
-import { useQuasar } from 'quasar';
 import { defineComponent, PropType, ref, watch } from 'vue';
+
 import { ITableRow } from './models';
+
+import { useQuasar } from 'quasar';
+
 export default defineComponent({
   name: 'RollTableEditor',
   props: {

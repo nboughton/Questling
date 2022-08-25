@@ -6,7 +6,7 @@
 
     <q-separator class="q-mb-md" />
 
-    <ability-editor v-model="item.subAbilities" />
+    <sub-ability-editor v-model="item.subAbilities" />
   </div>
 </template>
 
@@ -15,11 +15,11 @@ import { defineComponent, PropType, ref, watch } from 'vue';
 
 import { IInventoryItem } from './models';
 
-import AbilityEditor from './AbilityEditor.vue';
+import SubAbilityEditor from './SubAbilityEditor.vue';
 
 export default defineComponent({
   name: 'ItemEditor',
-  components: { AbilityEditor },
+  components: { SubAbilityEditor },
   props: {
     modelValue: {
       type: Object as PropType<IInventoryItem>,

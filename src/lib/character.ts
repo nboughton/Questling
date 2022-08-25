@@ -1,5 +1,5 @@
 import { uid } from 'quasar';
-import { ICharacter, IInventoryItem, INote } from 'src/components/models';
+import { ICharacter, IInventoryItem, INote, IRole } from 'src/components/models';
 
 export const NewCharacter = (): ICharacter => {
   return {
@@ -42,5 +42,13 @@ export const NewNote = (): INote => {
     name: 'New note',
     text: '',
     tags: [],
+  };
+};
+
+export const NewRole = (): IRole => {
+  return {
+    name: 'New Role',
+    id: uid(),
+    paths: {},
   };
 };

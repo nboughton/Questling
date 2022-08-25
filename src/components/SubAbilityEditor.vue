@@ -1,20 +1,19 @@
 <template>
   <div class="row items-center">
-    <h6 class="heading q-py-none q-my-none">Add ability</h6>
+    <h6 class="heading q-py-none q-my-none">Add sub-ability</h6>
     <q-btn class="col-shrink" icon="mdi-plus-circle" flat dense rounded @click="addAbility" />
   </div>
   <div class="column" v-for="(abl, index) of obj" :key="index">
     <q-card class="q-mb-md">
-      <div class="row items-center justify-end">
-        <!--h6 class="heading q-my-none q-py-none">Remove Ability</h6-->
-        <q-btn class="q-mr-sm q-mt-sm" icon="delete" flat dense rounded @click="removeAbility(index)">
-          <q-tooltip>Remove this ability</q-tooltip>
-        </q-btn>
-      </div>
       <q-card-section>
-        <div class="row items-center">
-          <q-input class="col-grow" label="AP Cost" hint="Leave empty if ability has no AP cost" v-model="obj[index].ap" dense />
-        </div>
+        <q-input class="row" label="AP Cost" hint="Leave empty if ability has no AP cost" v-model="obj[index].ap" dense>
+          <template v-slot:after>
+            <q-btn icon="delete" flat dense rounded @click="removeAbility(index)">
+              <q-tooltip>Remove this ability</q-tooltip>
+            </q-btn>
+          </template>
+        </q-input>
+
         <!--q-input class="row" label="Damage" hint="Leave empty if ability doesn't have a damage value" v-model="obj[index].dmg" /-->
         <q-input class="row" label="Text" v-model="obj[index].text" />
 

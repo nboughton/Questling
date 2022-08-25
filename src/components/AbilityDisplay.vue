@@ -16,10 +16,12 @@
 </template>
 
 <script lang="ts">
-import { computed } from 'vue';
-import { defineComponent, PropType } from 'vue';
+import { defineComponent, PropType, computed } from 'vue';
+
 import { IAbility } from './models';
+
 import SubAbilityDisplay from './SubAbilityDisplay.vue';
+
 export default defineComponent({
   name: 'AbilityDisplay',
   components: { SubAbilityDisplay },

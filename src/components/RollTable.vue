@@ -19,8 +19,11 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref } from 'vue';
+
 import { ITableRow } from './models';
+
 import { tableRoll } from 'src/lib/util';
+
 export default defineComponent({
   name: 'RollTable',
   props: {
