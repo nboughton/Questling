@@ -2,7 +2,7 @@ import { IRole } from 'src/components/models';
 
 export const Ranger: IRole = {
   name: 'Ranger',
-  id: '',
+  id: 'Core-Ranger',
   paths: {
     'Story and Song': [
       {

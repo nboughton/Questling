@@ -2,7 +2,7 @@ import { IRole } from 'src/components/models';
 
 export const Fighter: IRole = {
   name: 'Fighter',
-  id: '',
+  id: 'Core-Fighter',
   paths: {
     Dueling: [
       {

@@ -2,7 +2,7 @@ import { IRole } from 'src/components/models';
 
 export const Magician: IRole = {
   name: 'Magician',
-  id: '',
+  id: 'Core-Magician',
   paths: {
     Misdirection: [
       {

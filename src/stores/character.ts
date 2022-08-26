@@ -5,6 +5,7 @@ import { db } from 'src/lib/db';
 import { ICharacter } from 'src/components/models';
 import { exportFile } from 'quasar';
 import { deepCopy, now } from 'src/lib/util';
+import { Roles } from 'src/data/roles';
 
 export const useCharacterStore = defineStore('character', {
   state: () => {
@@ -79,10 +80,27 @@ export const useCharacterStore = defineStore('character', {
 
     async load(id: string) {
       try {
-        const campaign = await db.character.get(id);
-        if (campaign) {
-          // Load campaign data
-          this.data = campaign;
+        const character = await db.character.get(id);
+
+        if (character) {
+          // Fix missing ID values, this block can be removed eventually
+          // once it's fairly likely that everyone is using the new format.
+          Object.keys(character.roles).forEach((key) => {
+            // If it has no ID then it's old data that needs fixing
+            if (!character.roles[key].id) {
+              // Create new role with correct ID key
+              const id = Roles[key].id;
+              character.roles[id] = deepCopy(character.roles[key]);
+              // Assign id/name fields
+              character.roles[id].id = Roles[key].id;
+              character.roles[id].name = Roles[key].name;
+              //Delete original version
+              delete character.roles[key];
+            }
+          });
+
+          // Load character data
+          this.data = character;
         } else {
           // we've entered bad state, rectify
           await this.loadFirst();
@@ -98,7 +116,7 @@ export const useCharacterStore = defineStore('character', {
 
         await db.character.delete(id);
 
-        // If the deletion is for the active campaign, switch campaign
+        // If the deletion is for the active character, switch character
         if (config.data.current === id) {
           await this.loadFirst();
         }

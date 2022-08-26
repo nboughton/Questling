@@ -2,7 +2,7 @@ import { IRole } from 'src/components/models';
 
 export const Spy: IRole = {
   name: 'Spy',
-  id: '',
+  id: 'Core-Spy',
   paths: {
     Charisma: [
       {

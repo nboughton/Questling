@@ -52,10 +52,10 @@ export const useRoleStore = defineStore('roles', {
       }
     },
 
-    async save(role: IRole) {
-      await db.roles.put(deepCopy(role)).catch((err) => console.log(err));
+    async save() {
+      await db.roles.bulkPut(deepCopy(this.data)).catch((err) => console.log(err));
       // repopulate store
-      await this.populateStore();
+      //await this.populateStore();
     },
 
     async delete(role: IRole) {

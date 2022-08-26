@@ -161,7 +161,7 @@
 
         <div class="col-xs-9 col-sm-10">
           <!--RIGHT COLUMN-->
-          <role-editor v-if="selectedRole >= 0" v-model="roles.data[selectedRole]" />
+          <role-editor v-if="selectedRole >= 0" v-model="roles.data[selectedRole]" @delete="removeRole(selectedRole)" />
         </div>
       </q-card-section>
     </q-card>
@@ -261,14 +261,17 @@ export default defineComponent({
 
     const showRoleManager = ref(false);
     const selectedRole = ref(-1);
-    const addRole = () => roles.save(NewRole());
+    const addRole = () => roles.data.push(NewRole());
     const removeRole = (index: number) =>
       $q
         .dialog({
           title: `Delete ${roles.data[index].name}?`,
           cancel: true,
         })
-        .onOk(() => roles.delete(roles.data[index]));
+        .onOk(() => {
+          selectedRole.value = -1;
+          roles.delete(roles.data[index]);
+        });
 
     const showAbout = ref(false);
 

@@ -16,48 +16,59 @@ export default defineComponent({
   name: 'App',
   setup() {
     const loaded = ref(false);
-    const char = useCharacterStore();
-    const config = useConfigStore();
-    const roles = useRoleStore();
+    const characterStore = useCharacterStore();
+    const configStore = useConfigStore();
+    const roleStore = useRoleStore();
 
     const $q = useQuasar();
 
     onMounted(async () => {
-      $q.dark.set(config.data.darkMode);
+      $q.dark.set(configStore.data.darkMode);
 
-      await char.populateStore();
-      await roles.populateStore();
+      await characterStore.populateStore();
+      await roleStore.populateStore();
 
       loaded.value = true;
     });
 
     watch(
-      () => config.$state,
+      () => configStore.$state,
       async () => {
-        await config.save();
+        await configStore.save();
       },
       { deep: true }
     );
 
     watch(
-      () => config.$state.data.darkMode,
-      () => $q.dark.set(config.data.darkMode)
+      () => configStore.$state.data.darkMode,
+      () => $q.dark.set(configStore.data.darkMode)
     );
 
     watch(
-      () => config.$state.data.current,
+      () => configStore.$state.data.current,
       async () => {
-        await char.load(config.data.current);
+        await characterStore.load(configStore.data.current);
       }
     );
 
     watch(
-      () => char.$state,
+      () => characterStore.$state,
       debounce(async () => {
-        config.data.saving = true;
-        await char.save();
+        configStore.data.saving = true;
+        await characterStore.save();
         await sleep(200);
-        config.data.saving = false;
+        configStore.data.saving = false;
+      }, 1000),
+      { deep: true }
+    );
+
+    watch(
+      () => roleStore.$state,
+      debounce(async () => {
+        configStore.data.saving = true;
+        await roleStore.save();
+        await sleep(200);
+        configStore.data.saving = false;
       }, 1000),
       { deep: true }
     );

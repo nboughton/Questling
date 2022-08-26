@@ -48,7 +48,7 @@ export const NewNote = (): INote => {
 export const NewRole = (): IRole => {
   return {
     name: 'New Role',
-    id: uid(),
+    id: `Custom-${uid()}`,
     paths: {},
   };
 };

@@ -66,13 +66,11 @@ import { defineComponent, PropType, ref, watch } from 'vue';
 
 import { IRole, IAbility } from './models';
 
-import { debounce, useQuasar } from 'quasar';
-import { useRoleStore } from 'src/stores/roles';
+import { useQuasar } from 'quasar';
 
-import { deepCopy, sleep } from 'src/lib/util';
+import { deepCopy } from 'src/lib/util';
 
 import SubAbilityEditor from './SubAbilityEditor.vue';
-import { useConfigStore } from 'src/stores/config';
 
 export default defineComponent({
   name: 'RoleEditor',
@@ -86,8 +84,6 @@ export default defineComponent({
   emits: ['update:modelValue', 'delete'],
   setup(props, { emit }) {
     const role = ref(props.modelValue);
-    const roleStore = useRoleStore();
-    const configStore = useConfigStore();
     watch(
       () => props.modelValue,
       () => (role.value = props.modelValue),
@@ -95,15 +91,7 @@ export default defineComponent({
     );
     watch(
       () => role.value,
-      () => {
-        emit('update:modelValue', role.value);
-        debounce(async () => {
-          configStore.data.saving = true;
-          roleStore.save(role.value);
-          await sleep(200);
-          configStore.data.saving = false;
-        }, 1000);
-      },
+      () => emit('update:modelValue', role.value),
       { deep: true }
     );
 

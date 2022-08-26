@@ -1,8 +1,11 @@
 <template>
   <h6 class="pull-quote" v-if="Object.keys(char.data.roles).length === 0">Please select one or more roles on the Profile tab...</h6>
   <div v-for="(role, roleKey, roleIndex) of showKnown" :key="roleKey">
-    <h5 class="pull-quote q-py-none q-my-none text-center">
-      {{ roleKey }}
+    <h5 class="pull-quote q-py-none q-my-none text-center row items-center justify-center">
+      <q-btn icon="edit" flat dense rounded @click="editRole(roleKey as string)">
+        <q-tooltip>Edit this Role</q-tooltip>
+      </q-btn>
+      {{ char.data.roles[roleKey].name }}
       ({{ knownAbilities[roleKey].role.known }}/{{ knownAbilities[roleKey].role.total }})
       <q-checkbox
         v-model="displayToggles[roleKey]"
@@ -52,6 +55,18 @@
     </q-tab-panels>
     <!--END PATH TABS-->
   </div>
+
+  <q-dialog v-model="showEditor" maximized>
+    <q-card>
+      <q-card-section class="bg-dark row justify-between">
+        <h5 class="heading q-my-none q-py-none text-white">Edit Role</h5>
+        <q-btn icon="mdi-close-circle" flat dense rounded color="white" @click="showEditor = false" />
+      </q-card-section>
+      <q-card-section v-if="selectedRole">
+        <role-editor v-model="char.data.roles[selectedRole]" />
+      </q-card-section>
+    </q-card>
+  </q-dialog>
 </template>
 
 <script lang="ts">
@@ -62,10 +77,12 @@ import { IKnownAbilities, IRole } from 'src/components/models';
 import { useCharacterStore } from 'src/stores/character';
 
 import AbilityDisplay from '../AbilityDisplay.vue';
+import { useQuasar } from 'quasar';
+import RoleEditor from '../RoleEditor.vue';
 
 export default defineComponent({
   name: 'CharAbilities',
-  components: { AbilityDisplay },
+  components: { AbilityDisplay, RoleEditor },
   setup() {
     const char = useCharacterStore();
     const tabKeys = ref([] as string[]);
@@ -146,12 +163,32 @@ export default defineComponent({
       return out;
     });
 
+    const $q = useQuasar();
+    const showEditor = ref(false);
+    const selectedRole = ref('');
+    const editRole = (key: string) => {
+      if (char.data.roles[key]) {
+        selectedRole.value = key;
+        showEditor.value = true;
+        return;
+      }
+
+      $q.notify({
+        message: `ERROR: ${key} is not a valid Role id`,
+        type: 'warn',
+      });
+    };
+
     return {
       char,
       tabKeys,
       displayToggles,
       knownAbilities,
       showKnown,
+
+      showEditor,
+      selectedRole,
+      editRole,
     };
   },
 });

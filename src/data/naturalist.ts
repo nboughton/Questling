@@ -2,7 +2,7 @@ import { IRole } from 'src/components/models';
 
 export const Naturalist: IRole = {
   name: 'Naturalist',
-  id: '',
+  id: 'Core-Naturalist',
   paths: {
     Shapeshifter: [
       {

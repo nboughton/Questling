@@ -2,7 +2,7 @@ import { IRole } from 'src/components/models';
 
 export const Wizard: IRole = {
   name: 'Wizard',
-  id: '',
+  id: 'Core-Wizard',
   paths: {
     Evocation: [
       {
