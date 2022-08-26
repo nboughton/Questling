@@ -89,11 +89,11 @@ export const useCharacterStore = defineStore('character', {
             // If it has no ID then it's old data that needs fixing
             if (!character.roles[key].id) {
               // Create new role with correct ID key
-              const id = Roles[key].id;
-              character.roles[id] = deepCopy(character.roles[key]);
-              // Assign id/name fields
-              character.roles[id].id = Roles[key].id;
-              character.roles[id].name = Roles[key].name;
+              const roleID = Roles[key].id;
+              character.roles[roleID] = deepCopy(character.roles[key]);
+              // Assign roleID/name fields
+              character.roles[roleID].id = roleID;
+              character.roles[roleID].name = Roles[key].name;
               //Delete original version
               delete character.roles[key];
             }

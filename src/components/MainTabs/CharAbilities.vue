@@ -1,5 +1,6 @@
 <template>
   <h6 class="pull-quote" v-if="Object.keys(char.data.roles).length === 0">Please select one or more roles on the Profile tab...</h6>
+
   <div v-for="(role, roleKey, roleIndex) of showKnown" :key="roleKey">
     <h5 class="pull-quote q-py-none q-my-none text-center row items-center justify-center">
       <q-btn icon="edit" flat dense rounded @click="editRole(roleKey as string)">
@@ -16,6 +17,7 @@
         <q-tooltip>Toggle display of known/all abilities</q-tooltip>
       </q-checkbox>
     </h5>
+
     <!--PATH TABS-->
     <q-tabs v-model="tabKeys[roleIndex]" align="justify" class="bg-black text-white upper-tabs">
       <q-tab
@@ -39,6 +41,7 @@
             :default-opened="ablIndex === 0"
           >
             <q-separator />
+
             <q-card>
               <q-card-section class="q-mt-none q-pt-none">
                 <ability-display
@@ -58,11 +61,15 @@
 
   <q-dialog v-model="showEditor" maximized>
     <q-card>
-      <q-card-section class="bg-dark row justify-between">
+      <q-card-section class="bg-black row justify-between">
         <h5 class="heading q-my-none q-py-none text-white">Edit Role</h5>
         <q-btn icon="mdi-close-circle" flat dense rounded color="white" @click="showEditor = false" />
       </q-card-section>
       <q-card-section v-if="selectedRole">
+        <p>
+          Please note, changes made to Roles here will not be reflected in the available Roles selected from the profile tab. Questling copies Role data into
+          the character when it is added so that exported characters can take their data with them when loaded on to other devices.
+        </p>
         <role-editor v-model="char.data.roles[selectedRole]" />
       </q-card-section>
     </q-card>

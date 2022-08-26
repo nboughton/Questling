@@ -33,10 +33,10 @@
 
   <q-dialog v-model="showEditor" :maximized="$q.platform.is.mobile">
     <q-card style="min-width: 50%">
-      <q-card-section class="row justify-between items-center"
-        ><h5 class="q-my-sm heading col-grow">Item Editor</h5>
-        <q-btn class="col-shrink" icon="close" flat dense rounded @click="showEditor = false"
-      /></q-card-section>
+      <q-card-section class="row justify-between items-center bg-black">
+        <h5 class="q-my-sm heading col-grow text-white">Item Editor</h5>
+        <q-btn class="col-shrink" icon="mdi-close-circle" color="white" flat dense rounded @click="showEditor = false" />
+      </q-card-section>
       <q-card-section class="column"><item-editor v-model="char.data.inventory[itemToEdit]" /></q-card-section>
     </q-card>
   </q-dialog>

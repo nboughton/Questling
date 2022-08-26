@@ -9,13 +9,13 @@
         <q-input class="row" label="AP Cost" hint="Leave empty if ability has no AP cost" v-model="obj[index].ap" dense>
           <template v-slot:after>
             <q-btn icon="delete" flat dense rounded @click="removeAbility(index)">
-              <q-tooltip>Remove this ability</q-tooltip>
+              <q-tooltip>Remove this sub-ability</q-tooltip>
             </q-btn>
           </template>
         </q-input>
 
         <!--q-input class="row" label="Damage" hint="Leave empty if ability doesn't have a damage value" v-model="obj[index].dmg" /-->
-        <q-input class="row" label="Text" v-model="obj[index].text" />
+        <q-input class="row" label="Text" v-model="obj[index].text" dense autogrow />
 
         <q-separator class="q-mb-md" />
 
@@ -72,7 +72,7 @@ export default defineComponent({
     const removeAbility = (index: number) =>
       $q
         .dialog({
-          title: 'Remove this ability?',
+          title: 'Remove this sub-ability?',
           cancel: true,
         })
         .onOk(() => obj.value.splice(index, 1));

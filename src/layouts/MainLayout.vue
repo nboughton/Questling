@@ -161,7 +161,7 @@
 
         <div class="col-xs-9 col-sm-10">
           <!--RIGHT COLUMN-->
-          <role-editor v-if="selectedRole >= 0" v-model="roles.data[selectedRole]" @delete="removeRole(selectedRole)" />
+          <role-editor v-if="selectedRole >= 0" v-model="roles.data[selectedRole]" @delete="removeRole(selectedRole)" deleteable />
         </div>
       </q-card-section>
     </q-card>
@@ -198,8 +198,8 @@
         not associated with, or endorsed by, the copyright owners in any way.
       </q-card-section>
       <q-card-section>
-        The Questling codebase is &copy; <a href="https://twitter.com/tiberianpun">Nick Boughton</a>, with the exception of the Ability texts. Please see the
-        <a href="https://github.com/nboughton/questling">Github repository</a> to raise issues and submit bug reports.
+        The Questling codebase is &copy; <a href="https://twitter.com/tiberianpun">Nick Boughton</a>, with the exception of the Ability texts and Profile
+        suggestions. Please see the <a href="https://github.com/nboughton/questling">Github repository</a> to raise issues and submit bug reports.
       </q-card-section>
       <q-card-section>
         If you like this app, and want to support me, you can always <a href="https://ko-fi.com/tiberianpun">buy me a coffee</a>.

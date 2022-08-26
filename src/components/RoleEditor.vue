@@ -1,7 +1,7 @@
 <template>
   <div class="column">
     <q-input label="Name" v-model="role.name">
-      <template v-slot:after>
+      <template v-slot:after v-if="deleteable">
         <q-btn icon="delete" flat dense rounded @click="$emit('delete')">
           <q-tooltip>Delete this role</q-tooltip>
         </q-btn>
@@ -15,8 +15,8 @@
       </q-btn>
     </div>
 
-    <div class="q-mb-lg path-block" v-for="(path, pathKey) in role.paths" :key="`paths-${pathKey}`">
-      <div class="row items-center justify-between bg-grey-3 rounded-borders">
+    <q-expansion-item :label="`Path: ${pathKey}`" default-opened class="q-mb-lg path-block" v-for="(path, pathKey) in role.paths" :key="`paths-${pathKey}`">
+      <div class="row items-center justify-between">
         <div class="col">
           <div class="row">
             <h5 class="q-pl-xs q-py-none q-my-none">{{ pathKey }}</h5>
@@ -24,9 +24,10 @@
           </div>
         </div>
         <q-btn icon="delete" flat dense rounded @click="removePath(pathKey as string)">
-          <q-tooltip>Delete path</q-tooltip>
+          <q-tooltip>Delete this path</q-tooltip>
         </q-btn>
       </div>
+      <q-separator class="q-mb-sm" />
 
       <div class="row items-center q-ml-md">
         <h6 class="q-py-none q-my-none heading">Add ability</h6>
@@ -44,9 +45,11 @@
           label="Prefix Text"
           v-model="role.paths[pathKey][ablIndex].prefixText"
           hint="Use this space for descriptive text that appears before sub-abilities"
+          dense
+          autogrow
         />
 
-        <div class="q-ml-md">
+        <div class="q-ml-md q-mt-sm">
           <sub-ability-editor v-model="role.paths[pathKey][ablIndex].subAbilities" />
         </div>
 
@@ -54,10 +57,12 @@
           label="Suffix Text"
           v-model="role.paths[pathKey][ablIndex].suffixText"
           hint="Use this space for descriptive text that appears after sub-abilities"
+          dense
+          autogrow
         />
-        <q-separator class="q-my-md q-py-xs" color="black" />
+        <q-separator class="q-my-md q-pt-xs" color="black" />
       </div>
-    </div>
+    </q-expansion-item>
   </div>
 </template>
 
@@ -79,6 +84,10 @@ export default defineComponent({
     modelValue: {
       type: Object as PropType<IRole>,
       required: true,
+    },
+    deleteable: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['update:modelValue', 'delete'],
