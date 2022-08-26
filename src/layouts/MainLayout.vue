@@ -131,40 +131,45 @@
   </q-dialog>
 
   <q-dialog v-model="showRoleManager" maximized>
-    <q-card>
-      <q-card-section class="bg-dark row justify-between">
-        <h5 class="heading q-my-none q-py-none text-white">Custom Role Manager</h5>
-        <q-btn icon="mdi-close-circle" flat dense rounded color="white" @click="showRoleManager = false" />
-      </q-card-section>
+    <q-layout container view="hHh lpR fFf">
+      <q-card>
+        <q-header elevated class="bg-black text-white row no-wrap">
+          <q-toolbar>
+            <q-btn flat dense icon="menu" @click="roleDrawerOpen = !roleDrawerOpen" />
+            <q-toolbar-title>Custom Role Manager</q-toolbar-title>
+          </q-toolbar>
+          <q-btn icon="mdi-close-circle" flat dense rounded color="white" @click="showRoleManager = false" />
+        </q-header>
 
-      <q-card-section class="row">
-        <q-list class="col-xs-3 col-sm-2">
-          <!--LEFT COLUMN-->
-          <q-item clickable v-ripple @click="addRole">
-            <q-item-section avatar>
-              <q-icon name="mdi-plus-circle" />
-            </q-item-section>
-            <q-item-section class="heading">New Role</q-item-section>
-          </q-item>
+        <q-drawer side="left" v-model="roleDrawerOpen" bordered :breakpoint="400" :width="220">
+          <q-list>
+            <!--LEFT COLUMN-->
+            <q-item clickable v-ripple @click="addRole">
+              <q-item-section avatar>
+                <q-icon name="mdi-plus-circle" />
+              </q-item-section>
+              <q-item-section class="heading">New Role</q-item-section>
+            </q-item>
 
-          <q-separator vertical color="black" />
+            <q-item v-for="(role, roleIndex) of roles.data" :key="`custom-role-${role.name}-${roleIndex}`" clickable v-ripple @click="selectedRole = roleIndex">
+              <q-item-section avatar>
+                <q-icon name="mdi-account-details" />
+              </q-item-section>
+              <q-item-section class="heading">
+                {{ role.name }}
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-drawer>
 
-          <q-item v-for="(role, roleIndex) of roles.data" :key="`custom-role-${role.name}-${roleIndex}`" clickable v-ripple @click="selectedRole = roleIndex">
-            <q-item-section avatar>
-              <q-icon name="mdi-account-details" />
-            </q-item-section>
-            <q-item-section class="heading">
-              {{ role.name }}
-            </q-item-section>
-          </q-item>
-        </q-list>
-
-        <div class="col-xs-9 col-sm-10">
-          <!--RIGHT COLUMN-->
-          <role-editor v-if="selectedRole >= 0" v-model="roles.data[selectedRole]" @delete="removeRole(selectedRole)" deleteable />
-        </div>
-      </q-card-section>
-    </q-card>
+        <q-page-container>
+          <q-page padding>
+            <!--RIGHT COLUMN-->
+            <role-editor v-if="selectedRole >= 0" v-model="roles.data[selectedRole]" @delete="removeRole(selectedRole)" deleteable />
+          </q-page>
+        </q-page-container>
+      </q-card>
+    </q-layout>
   </q-dialog>
 
   <q-dialog v-model="showRolesLoad" :maximized="$q.platform.is.mobile">
@@ -232,6 +237,7 @@ export default defineComponent({
     const character = useCharacterStore();
     const roles = useRoleStore();
     const leftDrawerOpen = ref(false);
+    const roleDrawerOpen = ref(true);
 
     const addCharacter = () => character.new();
     const removeCharacter = (id: string) =>
@@ -335,6 +341,7 @@ export default defineComponent({
 
       rollAction,
       showAbout,
+      roleDrawerOpen,
       leftDrawerOpen,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
