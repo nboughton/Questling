@@ -19,9 +19,9 @@ export default defineComponent({
     const char = useCharacterStore();
     const $q = useQuasar();
     const spendAp = () => {
-      if (typeof props.ap === 'number') {
-        if (char.data.ap - props.ap >= 0) {
-          char.data.ap -= props.ap;
+      if (typeof props.ap === 'number' || (typeof props.ap === 'string' && props.ap != 'X')) {
+        if (char.data.ap - +props.ap >= 0) {
+          char.data.ap -= +props.ap;
           $q.notify({
             message: `<div class="page-content">${props.ap} AP spent</div>`,
             html: true,

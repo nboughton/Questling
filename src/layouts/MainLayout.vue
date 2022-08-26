@@ -138,7 +138,7 @@
             <q-btn flat dense icon="menu" @click="roleDrawerOpen = !roleDrawerOpen" />
             <q-toolbar-title>Custom Role Manager</q-toolbar-title>
           </q-toolbar>
-          <q-btn icon="mdi-close-circle" flat dense rounded color="white" @click="showRoleManager = false" />
+          <q-btn class="q-mr-sm" icon="mdi-close-circle" flat dense rounded color="white" @click="showRoleManager = false" />
         </q-header>
 
         <q-drawer side="left" v-model="roleDrawerOpen" bordered :breakpoint="400" :width="220">
@@ -236,6 +236,7 @@ export default defineComponent({
     const config = useConfigStore();
     const character = useCharacterStore();
     const roles = useRoleStore();
+
     const leftDrawerOpen = ref(false);
     const roleDrawerOpen = ref(true);
 

@@ -15,14 +15,14 @@
       </q-btn>
     </q-card-section>
 
-    <q-card-section v-if="item.text" class="row q-py-sm q-my-sm">
-      <p class="abl-text">
-        <span class="dmg-box" v-if="item.dmg">{{ item.dmg }}</span>
+    <q-card-section v-if="item.text" class="row q-py-xs q-my-xs">
+      <p class="abl-text q-my-xs">
+        <span class="dmg-box q-mr-sm" v-if="item.dmg">{{ item.dmg }}</span>
         {{ item.text }}
       </p>
     </q-card-section>
 
-    <q-card-section v-for="(abl, ablIndex) of char.data.inventory[index].subAbilities" :key="`abl-${ablIndex}`">
+    <q-card-section class="q-pt-none q-mt-none" v-for="(abl, ablIndex) of char.data.inventory[index].subAbilities" :key="`abl-${ablIndex}`">
       <sub-ability-display :ability="abl" />
     </q-card-section>
 

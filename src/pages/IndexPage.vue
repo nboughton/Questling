@@ -1,41 +1,24 @@
 <template>
   <q-page :class="`page-content q-px-${padding}`" padding>
     <div class="row justify-between items-center">
-      <q-input
-        class="col-xs-3 col-md-1"
-        type="number"
-        :max="10"
-        :min="0"
-        v-model.number="char.data.hp"
-        borderless
-        input-class="pull-quote"
-        input-style="font-size: x-large;"
-      >
-        <template v-slot:prepend>
-          <div class="pull-quote q-pr-sm">HP</div>
+      <q-btn class="col-shrink" flat rounded size="xl" @click="editHP">
+        <template v-slot:default>
+          <div class="pull-quote"><span class="pull-quote q-mr-md">HP</span> {{ char.data.hp }}</div>
         </template>
-      </q-input>
+      </q-btn>
 
-      <div class="col-xs-6 col-md-10">
+      <div class="col-grow">
         <div class="row full-width">
           <div class="col-12 text-center pull-quote">{{ char.data.name }}</div>
           <div class="col-12 text-center text-subtitle2" v-if="char.data.deets.pronouns">({{ char.data.deets.pronouns }})</div>
         </div>
       </div>
 
-      <q-input
-        class="col-xs-3 col-md-1"
-        type="number"
-        :min="0"
-        v-model.number="char.data.ap"
-        borderless
-        input-class="pull-quote"
-        input-style="text-align: right; font-size: x-large;"
-      >
-        <template v-slot:append>
-          <div class="pull-quote">AP</div>
+      <q-btn class="col-shrink" flat rounded size="xl" @click="editAP">
+        <template v-slot:default>
+          <div class="pull-quote">{{ char.data.ap }} <span class="pull-quote q-ml-md">AP</span></div>
         </template>
-      </q-input>
+      </q-btn>
     </div>
 
     <q-tabs v-model="tab" align="justify">
@@ -74,10 +57,37 @@ export default defineComponent({
     const $q = useQuasar();
     const padding = computed((): string => ($q.screen.lt.md ? 'sm' : 'xl'));
 
+    const editHP = () =>
+      $q
+        .dialog({
+          title: 'HP',
+          cancel: true,
+          prompt: {
+            model: `${char.data.hp}`,
+            type: 'number',
+          },
+        })
+        .onOk((hp) => (char.data.hp = hp as number));
+
+    const editAP = () =>
+      $q
+        .dialog({
+          title: 'AP',
+          cancel: true,
+          prompt: {
+            model: `${char.data.ap}`,
+            type: 'number',
+          },
+        })
+        .onOk((ap) => (char.data.ap = ap as number));
+
     return {
       tab,
       char,
       padding,
+
+      editHP,
+      editAP,
     };
   },
 });
