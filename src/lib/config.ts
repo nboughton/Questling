@@ -8,5 +8,6 @@ export const NewConfig = (): IConfig => {
     saving: false,
     edit: true,
     darkMode: false,
+    tabView: true,
   };
 };

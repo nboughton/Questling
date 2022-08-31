@@ -15,7 +15,13 @@
       </q-btn>
     </div>
 
-    <q-expansion-item :label="`Path: ${pathKey}`" default-opened class="q-mb-lg path-block" v-for="(path, pathKey) in role.paths" :key="`paths-${pathKey}`">
+    <q-expansion-item
+      :label="`Path: ${pathKey}`"
+      :default-opened="false"
+      class="q-mb-lg path-block"
+      v-for="(path, pathKey) in role.paths"
+      :key="`paths-${pathKey}`"
+    >
       <div class="row items-center justify-between">
         <div class="col">
           <div class="row">

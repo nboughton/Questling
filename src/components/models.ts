@@ -30,6 +30,7 @@ export interface IConfig {
   saving: boolean;
   edit: boolean;
   darkMode: boolean;
+  tabView?: boolean; // Toggle tab/accordion view on abilties tab
 }
 
 export interface IIndexItem extends IHasName, IHasID {}

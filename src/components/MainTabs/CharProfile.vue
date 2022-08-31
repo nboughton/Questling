@@ -158,11 +158,15 @@ export default defineComponent({
     // Aggregate built-in, custom roles, and player roles that are not mirrored in either of the other two stores
     const aggregateRoles = computed((): { [index: string]: IRole } => {
       const r: { [index: string]: IRole } = {};
+      // Built-in Roles
       Object.keys(Roles).forEach((key) => (r[Roles[key].id] = Roles[key]));
+      // Custom Roles
       roleStore.data.forEach((cRole) => (r[cRole.id] = cRole));
+      // Player Roles
       Object.keys(characterStore.data.roles).forEach((key) => {
         if (!r[characterStore.data.roles[key].id]) r[characterStore.data.roles[key].id] = characterStore.data.roles[key];
       });
+
       return r;
     });
     // QSelect options

@@ -15,10 +15,10 @@ export const useConfigStore = defineStore('config', {
     async populateStore() {
       if ((await db.config.count()) > 0) {
         try {
-          this.data = (await db.config
-            .where('id')
-            .equals(1)
-            .first()) as IConfig;
+          this.data = (await db.config.where('id').equals(1).first()) as IConfig;
+
+          // Fix old data for tabView option
+          if (this.data.tabView === undefined) this.data.tabView = true;
         } catch (err) {
           console.log(err);
         }
