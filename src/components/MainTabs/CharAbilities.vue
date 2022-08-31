@@ -73,29 +73,16 @@
         :header-class="`bg-black text-white ${pathIndex == 0 ? 'upper-tabs' : ''}`"
         default-opened
       >
-        <q-list bordered>
-          <q-expansion-item
-            v-for="(abl, ablIndex) of path"
-            :key="`exp-${roleKey}-${pathKey}-${abl.name}`"
-            :label="abl.name"
-            :icon="abl.learned ? 'star' : 'star_outline'"
-            :default-opened="ablIndex === 0"
-          >
-            <q-separator />
-
-            <q-card>
-              <q-card-section class="q-mt-none q-pt-none">
-                <ability-display
-                  :ability="abl"
-                  @learned="
-                    characterStore.data.roles[roleKey].paths[pathKey][ablIndex].learned = !characterStore.data.roles[roleKey].paths[pathKey][ablIndex].learned
-                  "
-                />
-              </q-card-section>
-            </q-card>
-            <q-separator />
-          </q-expansion-item>
-        </q-list>
+        <q-card bordered v-for="(abl, ablIndex) of path" :key="`exp-${roleKey}-${pathKey}-${abl.name}`">
+          <q-card-section class="q-mt-none q-pt-none">
+            <ability-display
+              :ability="abl"
+              @learned="
+                characterStore.data.roles[roleKey].paths[pathKey][ablIndex].learned = !characterStore.data.roles[roleKey].paths[pathKey][ablIndex].learned
+              "
+            />
+          </q-card-section>
+        </q-card>
       </q-expansion-item>
       <!--END FULL ACCORDION-->
     </div>
