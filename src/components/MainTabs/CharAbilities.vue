@@ -32,7 +32,7 @@
         />
       </q-tabs>
 
-      <q-tab-panels v-model="tabKeys[roleIndex]">
+      <q-tab-panels v-model="tabKeys[roleIndex]" animated>
         <q-tab-panel class="q-pa-none q-ma-none" v-for="(path, pathKey) of role.paths" :key="`panel-${roleKey}-${pathKey}`" :name="pathKey">
           <!--ACCORDION LAYOUT-->
           <q-list bordered>

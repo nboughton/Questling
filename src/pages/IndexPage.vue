@@ -28,7 +28,7 @@
       <q-tab name="notes" label="Notes" class="heading" />
     </q-tabs>
 
-    <q-tab-panels v-model="tab" animated swipeable>
+    <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="profile"><char-profile /></q-tab-panel>
       <q-tab-panel name="abilities"><char-abilities /></q-tab-panel>
       <q-tab-panel name="inventory"><char-inventory /></q-tab-panel>
