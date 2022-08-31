@@ -4,7 +4,9 @@
       <q-toolbar>
         <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title class="pull-quote"> Questling </q-toolbar-title>
+        <q-toolbar-title class="pull-quote">
+          Questling <span class="text-subtitle2">(v{{ pkg.version }})</span>
+        </q-toolbar-title>
         <q-btn icon="save" v-if="config.data.saving" />
         <q-btn icon="mdi-dice-d20" label="Roll the Die" color="black" @click="rollAction" />
       </q-toolbar>
@@ -226,6 +228,7 @@ import { useRoleStore } from 'src/stores/roles';
 
 import { coreRoll } from 'src/lib/util';
 import { NewRole } from 'src/lib/character';
+import * as pkg from 'src/../package.json';
 
 import RoleEditor from 'src/components/RoleEditor.vue';
 
@@ -322,6 +325,7 @@ export default defineComponent({
     };
     return {
       config,
+      pkg,
 
       character,
       addCharacter,
