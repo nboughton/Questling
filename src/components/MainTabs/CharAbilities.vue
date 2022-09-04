@@ -1,6 +1,12 @@
 <template>
   <h6 class="pull-quote" v-if="Object.keys(characterStore.data.roles).length === 0">Please select one or more roles on the Profile tab...</h6>
 
+  <q-input class="q-mb-md" label="Search" v-model="filter" clearable dense debounce="500">
+    <template v-slot:prepend>
+      <q-icon name="search" />
+    </template>
+  </q-input>
+
   <div v-for="(role, roleKey, roleIndex) of showKnown" :key="roleKey">
     <!--ROLE HEADER-->
     <h5 class="pull-quote q-py-none q-my-none text-center row items-center justify-center">
@@ -108,7 +114,7 @@
 <script lang="ts">
 import { defineComponent, onMounted, ref, computed } from 'vue';
 
-import { IKnownAbilities, IRole } from 'src/components/models';
+import { IAbility, IKnownAbilities, IRole } from 'src/components/models';
 
 import { useCharacterStore } from 'src/stores/character';
 
@@ -176,12 +182,22 @@ export default defineComponent({
       return k;
     });
 
+    const filter = ref('');
+    const searchAbility = (abl: IAbility): boolean => {
+      if (filter.value === '' || filter.value === null) return true;
+      if (RegExp(filter.value, 'i').test(abl.name)) return true;
+      for (const sub of abl.subAbilities) {
+        if (RegExp(filter.value, 'i').test(sub.text)) return true;
+      }
+      return false;
+    };
+
     const showKnown = computed((): { [index: string]: IRole } => {
       const out: { [index: string]: IRole } = {};
 
       for (const role of Object.keys(knownAbilities.value)) {
         // If no abilities for a role are known then set display to all
-        if (displayToggles.value[role]) {
+        if (displayToggles.value[role] && (filter.value === '' || filter.value === null)) {
           out[role] = characterStore.data.roles[role];
           continue;
         }
@@ -192,7 +208,7 @@ export default defineComponent({
             if (knownAbilities.value[role].paths[path].known > 0) {
               if (!out[role].paths[path]) out[role].paths[path] = [];
               characterStore.data.roles[role].paths[path].forEach((abl) => {
-                if (abl.learned === true) out[role].paths[path].push(abl);
+                if (abl.learned === true && searchAbility(abl)) out[role].paths[path].push(abl);
               });
             }
           });
@@ -228,6 +244,8 @@ export default defineComponent({
       showEditor,
       selectedRole,
       editRole,
+
+      filter,
     };
   },
 });
