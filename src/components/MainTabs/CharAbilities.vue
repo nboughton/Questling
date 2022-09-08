@@ -112,16 +112,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref, computed } from 'vue';
+import { defineComponent, onMounted, ref, computed, watch } from 'vue';
 
 import { IAbility, IKnownAbilities, IRole } from 'src/components/models';
 
+import { useQuasar } from 'quasar';
+import { useConfigStore } from 'src/stores/config';
 import { useCharacterStore } from 'src/stores/character';
 
 import AbilityDisplay from '../AbilityDisplay.vue';
-import { useQuasar } from 'quasar';
 import RoleEditor from '../RoleEditor.vue';
-import { useConfigStore } from 'src/stores/config';
 
 export default defineComponent({
   name: 'CharAbilities',
@@ -182,6 +182,31 @@ export default defineComponent({
       return k;
     });
 
+    const showKnown = computed((): { [index: string]: IRole } => {
+      const out: { [index: string]: IRole } = {};
+
+      for (const role of Object.keys(knownAbilities.value)) {
+        // If no abilities for a role are known then set display to all
+        if (displayToggles.value[role]) {
+          out[role] = characterStore.data.roles[role];
+          continue;
+        }
+
+        if (knownAbilities.value[role].role.known > 0) {
+          out[role] = { paths: {}, name: '', id: '' };
+          Object.keys(knownAbilities.value[role].paths).forEach((path) => {
+            if (knownAbilities.value[role].paths[path].known > 0) {
+              if (!out[role].paths[path]) out[role].paths[path] = [];
+              characterStore.data.roles[role].paths[path].forEach((abl) => {
+                if (abl.learned === true) out[role].paths[path].push(abl);
+              });
+            }
+          });
+        }
+      }
+      return out;
+    });
+
     const filter = ref('');
     const searchAbility = (abl: IAbility): boolean => {
       if (filter.value === '' || filter.value === null) return true;
@@ -211,32 +236,6 @@ export default defineComponent({
       return false;
     };
 
-    const showKnown = computed((): { [index: string]: IRole } => {
-      const out: { [index: string]: IRole } = {};
-
-      for (const role of Object.keys(knownAbilities.value)) {
-        console.log(knownAbilities.value[role]);
-        // If no abilities for a role are known then set display to all
-        if (displayToggles.value[role]) {
-          out[role] = characterStore.data.roles[role];
-          continue;
-        }
-
-        if (knownAbilities.value[role].role.known > 0) {
-          out[role] = { paths: {}, name: '', id: '' };
-          Object.keys(knownAbilities.value[role].paths).forEach((path) => {
-            if (knownAbilities.value[role].paths[path].known > 0) {
-              if (!out[role].paths[path]) out[role].paths[path] = [];
-              characterStore.data.roles[role].paths[path].forEach((abl) => {
-                if (abl.learned === true) out[role].paths[path].push(abl);
-              });
-            }
-          });
-        }
-      }
-      return out;
-    });
-
     const filtered = computed((): { [index: string]: IRole } => {
       if (filter.value === '' || filter.value === null) return showKnown.value;
 
@@ -258,6 +257,28 @@ export default defineComponent({
 
       return out;
     });
+
+    watch(
+      () => filtered.value,
+      () => {
+        tabKeys.value = [];
+
+        for (const role in filtered.value) {
+          displayToggles.value[role] = knownAbilities.value[role].role.known === 0 ? true : false;
+
+          let path = Object.keys(filtered.value[role].paths)[0];
+          for (const p of Object.keys(filtered.value[role].paths)) {
+            const k = knownPathAbilities(role, p);
+            if (k.known > 0) {
+              path = p;
+              break;
+            }
+          }
+          tabKeys.value.push(path);
+        }
+      },
+      { deep: true }
+    );
 
     const $q = useQuasar();
     const showEditor = ref(false);
