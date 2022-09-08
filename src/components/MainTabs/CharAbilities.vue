@@ -7,7 +7,7 @@
     </template>
   </q-input>
 
-  <div v-for="(role, roleKey, roleIndex) of showKnown" :key="roleKey">
+  <div v-for="(role, roleKey, roleIndex) of filtered" :key="roleKey">
     <!--ROLE HEADER-->
     <h5 class="pull-quote q-py-none q-my-none text-center row items-center justify-center">
       <q-btn icon="edit" flat dense rounded @click="editRole(roleKey as string)">
@@ -185,10 +185,29 @@ export default defineComponent({
     const filter = ref('');
     const searchAbility = (abl: IAbility): boolean => {
       if (filter.value === '' || filter.value === null) return true;
+
       if (RegExp(filter.value, 'i').test(abl.name)) return true;
+
       for (const sub of abl.subAbilities) {
         if (RegExp(filter.value, 'i').test(sub.text)) return true;
       }
+
+      return false;
+    };
+
+    const searchPath = (path: IAbility[]): boolean => {
+      for (const a of path) {
+        if (searchAbility(a)) return true;
+      }
+
+      return false;
+    };
+
+    const searchRole = (role: IRole): boolean => {
+      for (const p in role.paths) {
+        if (searchPath(role.paths[p])) return true;
+      }
+
       return false;
     };
 
@@ -196,8 +215,9 @@ export default defineComponent({
       const out: { [index: string]: IRole } = {};
 
       for (const role of Object.keys(knownAbilities.value)) {
+        console.log(knownAbilities.value[role]);
         // If no abilities for a role are known then set display to all
-        if (displayToggles.value[role] && (filter.value === '' || filter.value === null)) {
+        if (displayToggles.value[role]) {
           out[role] = characterStore.data.roles[role];
           continue;
         }
@@ -208,12 +228,34 @@ export default defineComponent({
             if (knownAbilities.value[role].paths[path].known > 0) {
               if (!out[role].paths[path]) out[role].paths[path] = [];
               characterStore.data.roles[role].paths[path].forEach((abl) => {
-                if (abl.learned === true && searchAbility(abl)) out[role].paths[path].push(abl);
+                if (abl.learned === true) out[role].paths[path].push(abl);
               });
             }
           });
         }
       }
+      return out;
+    });
+
+    const filtered = computed((): { [index: string]: IRole } => {
+      if (filter.value === '' || filter.value === null) return showKnown.value;
+
+      const out: { [index: string]: IRole } = {};
+
+      for (const role in showKnown.value) {
+        if (searchRole(showKnown.value[role])) {
+          out[role] = { paths: {}, name: '', id: '' };
+          for (const path in showKnown.value[role].paths) {
+            if (searchPath(showKnown.value[role].paths[path])) {
+              out[role].paths[path] = [] as IAbility[];
+              for (const abl of showKnown.value[role].paths[path]) {
+                if (searchAbility(abl)) out[role].paths[path].push(abl);
+              }
+            }
+          }
+        }
+      }
+
       return out;
     });
 
@@ -239,13 +281,13 @@ export default defineComponent({
       tabKeys,
       displayToggles,
       knownAbilities,
-      showKnown,
 
       showEditor,
       selectedRole,
       editRole,
 
       filter,
+      filtered,
     };
   },
 });
