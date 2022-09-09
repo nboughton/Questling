@@ -261,19 +261,16 @@ export default defineComponent({
     watch(
       () => filtered.value,
       () => {
-        tabKeys.value = [];
-
-        for (const role in filtered.value) {
+        Object.keys(filtered.value).forEach((role, i) => {
           let path = Object.keys(filtered.value[role].paths)[0];
           for (const p of Object.keys(filtered.value[role].paths)) {
-            const k = knownPathAbilities(role, p);
-            if (k.known > 0) {
+            if (knownPathAbilities(role, p).known > 0 && p === tabKeys.value[i]) {
               path = p;
               break;
             }
           }
-          tabKeys.value.push(path);
-        }
+          tabKeys.value[i] = path;
+        });
       },
       { deep: true }
     );
