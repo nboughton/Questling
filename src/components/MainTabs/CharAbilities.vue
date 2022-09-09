@@ -264,8 +264,6 @@ export default defineComponent({
         tabKeys.value = [];
 
         for (const role in filtered.value) {
-          displayToggles.value[role] = knownAbilities.value[role].role.known === 0 ? true : false;
-
           let path = Object.keys(filtered.value[role].paths)[0];
           for (const p of Object.keys(filtered.value[role].paths)) {
             const k = knownPathAbilities(role, p);
