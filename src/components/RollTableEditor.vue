@@ -4,9 +4,9 @@
     <q-btn icon="mdi-plus-circle" flat dense rounded @click="addRow"></q-btn>
   </div>
   <div class="row items-center justify-between" v-for="(row, index) of rows" :key="index">
-    <q-input class="col-shrink" label="Floor" type="number" v-model.number="rows[index].floor" dense />
-    <q-input class="col-shrink" label="Ceiling" type="number" v-model.number="rows[index].ceiling" dense />
-    <q-input class="col-grow" label="Result" v-model="rows[index].result" dense />
+    <q-input class="col-shrink" label="Floor" type="number" v-model.number="rows![index].floor" dense />
+    <q-input class="col-shrink" label="Ceiling" type="number" v-model.number="rows![index].ceiling" dense />
+    <q-input class="col-grow" label="Result" v-model="rows![index].result" dense />
     <q-btn class="col-shrink" icon="delete" flat dense rounded @click="removeRow(index)" />
   </div>
 </template>
@@ -22,7 +22,7 @@ export default defineComponent({
   name: 'RollTableEditor',
   props: {
     modelValue: {
-      type: Array as PropType<ITableRow[]>,
+      type: Array as PropType<ITableRow[] | undefined>,
       required: true,
     },
   },
@@ -40,7 +40,8 @@ export default defineComponent({
       { deep: true }
     );
 
-    const addRow = () => rows.value.push({ floor: 1, ceiling: 1, result: '' });
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const addRow = () => rows.value!.push({ floor: 1, ceiling: 1, result: '' });
     const $q = useQuasar();
     const removeRow = (index: number) =>
       $q
@@ -48,7 +49,8 @@ export default defineComponent({
           title: 'Remove this row?',
           cancel: true,
         })
-        .onOk(() => rows.value.splice(index, 1));
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        .onOk(() => rows.value!.splice(index, 1));
 
     return {
       rows,

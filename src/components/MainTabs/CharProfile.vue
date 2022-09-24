@@ -132,6 +132,8 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue';
 
+import { IRole } from '../models';
+
 import { useQuasar } from 'quasar';
 import { useRoleStore } from 'src/stores/roles';
 import { useConfigStore } from 'src/stores/config';
@@ -140,7 +142,6 @@ import { useCharacterStore } from 'src/stores/character';
 import { Lists, getSuggestion } from 'src/data/profileSuggestions';
 import { Roles } from 'src/data/roles';
 import { deepCopy } from 'src/lib/util';
-import { IRole } from '../models';
 
 export default defineComponent({
   name: 'CharProfile',
